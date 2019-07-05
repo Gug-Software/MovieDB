@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">GuG Movies</string>
+
+    <string name="common_">GuG Movies</string>
+
+    <string name="text_">GuG Movies</string>
+
+    <string name="menu_bottom_popular">Populares</string>
+    <string name="menu_bottom_topRated">En el Top</string>
+    <string name="menu_bottom_upComing">Pronto</string>
+
+    <string name="title_movieDetail">Detalle de pelicula</string>
+
 </resources>
