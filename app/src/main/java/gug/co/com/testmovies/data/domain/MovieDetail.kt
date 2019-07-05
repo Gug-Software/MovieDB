@@ -1,6 +1,6 @@
 package gug.co.com.testmovies.data.domain
 
-data class Movie(
+data class MovieDetail(
 
     val id: Int,
     val originalTitle: String,

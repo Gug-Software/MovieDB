@@ -1,7 +1,10 @@
 package gug.co.com.testmovies.data.source.remote.dtos.movies.details
 
-
 import com.squareup.moshi.Json
+import gug.co.com.testmovies.data.source.local.entities.DbGenre
+import gug.co.com.testmovies.data.source.local.entities.DbMovie
+import gug.co.com.testmovies.data.source.local.entities.DbProductionCompany
+import gug.co.com.testmovies.data.source.local.entities.DbSpokenLanguage
 
 data class DtoMovieDetail(
 
@@ -81,3 +84,71 @@ data class DtoMovieDetail(
     val voteCount: Int // 7421
 
 )
+
+fun DtoMovieDetail.asDatabaseModel(): DbMovie {
+
+    return DbMovie(
+        id = this.id,
+        adult = this.adult,
+        backdropPath = this.backdropPath,
+        budget = this.budget,
+        homepage = this.homepage,
+        imdbId = this.imdbId,
+        originalLanguage = this.originalLanguage,
+        originalTitle = this.originalTitle,
+        overview = this.overview,
+        popularity = this.popularity,
+        posterPath = this.posterPath,
+        releaseDate = this.releaseDate,
+        revenue = this.revenue,
+        runtime = this.runtime,
+        status = this.status,
+        tagline = this.tagline,
+        title = this.title,
+        video = this.video,
+        voteAverage = this.voteAverage,
+        voteCount = this.voteCount,
+        isPopular = false,
+        isTopRated = false,
+        isUpComing = false
+    )
+
+}
+
+fun List<DtoGenre>.asDatabaseModel(movieId: Int): Array<DbGenre> {
+
+    return map {
+        DbGenre(
+            movieId = movieId,
+            id = it.id,
+            name = it.name
+        )
+    }.toTypedArray()
+
+}
+
+fun List<DtoSpokenLanguage>.asDatabaseModel(movieId: Int): Array<DbSpokenLanguage> {
+
+    return map {
+        DbSpokenLanguage(
+            movieId = movieId,
+            iso6391 = it.iso6391,
+            name = it.name
+        )
+    }.toTypedArray()
+
+}
+
+fun List<DtoProductionCompany>.asDatabaseModel(movieId: Int): Array<DbProductionCompany> {
+
+    return map {
+        DbProductionCompany(
+            movieId = movieId,
+            id = it.id,
+            logoPath = it.logoPath,
+            name = it.name,
+            originCountry = it.originCountry
+        )
+    }.toTypedArray()
+
+}
