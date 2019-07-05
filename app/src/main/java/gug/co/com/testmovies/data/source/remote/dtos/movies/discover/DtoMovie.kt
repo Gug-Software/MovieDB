@@ -1,4 +1,4 @@
-package gug.co.com.testmovies.data.source.remote.dtos
+package gug.co.com.testmovies.data.source.remote.dtos.movies.discover
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
