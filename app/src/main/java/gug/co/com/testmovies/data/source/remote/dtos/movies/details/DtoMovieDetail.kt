@@ -85,6 +85,9 @@ data class DtoMovieDetail(
 
 )
 
+/**
+ * Transform a MovieDetail DTO into a entity in db local
+ */
 fun DtoMovieDetail.asDatabaseModel(): DbMovie {
 
     return DbMovie(
@@ -115,6 +118,9 @@ fun DtoMovieDetail.asDatabaseModel(): DbMovie {
 
 }
 
+/**
+ * Transform a DtoGenre DTO into a entity in db local
+ */
 fun List<DtoGenre>.asDatabaseModel(movieId: Int): Array<DbGenre> {
 
     return map {
@@ -127,6 +133,9 @@ fun List<DtoGenre>.asDatabaseModel(movieId: Int): Array<DbGenre> {
 
 }
 
+/**
+ * Transform a DtoSpokenLanguage DTO into a entity in db local
+ */
 fun List<DtoSpokenLanguage>.asDatabaseModel(movieId: Int): Array<DbSpokenLanguage> {
 
     return map {
@@ -139,6 +148,9 @@ fun List<DtoSpokenLanguage>.asDatabaseModel(movieId: Int): Array<DbSpokenLanguag
 
 }
 
+/**
+ * Transform a DtoProductionCompany DTO into a entity in db local
+ */
 fun List<DtoProductionCompany>.asDatabaseModel(movieId: Int): Array<DbProductionCompany> {
 
     return map {

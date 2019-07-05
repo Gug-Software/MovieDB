@@ -14,6 +14,6 @@ interface VideosDao {
     suspend fun insertAll(vararg dbVideo: DbVideo)
 
     @Query("SELECT * FROM DbVideo WHERE movieId= :movieId")
-    suspend fun getVideosByMovie(movieId: Int): List<DbMovie>
+    suspend fun getVideosByMovie(movieId: Int): List<DbVideo>
 
 }

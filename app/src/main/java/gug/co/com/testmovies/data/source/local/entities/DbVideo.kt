@@ -1,12 +1,16 @@
 package gug.co.com.testmovies.data.source.local.entities
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity
 data class DbVideo(
+
+    @PrimaryKey
+    val id: String, // 5d1461950a517c00305ec236
     
     val movieId: Int,
-    val id: String, // 5d1461950a517c00305ec236
+
     val iso31661: String, // US
     val iso6391: String, // en
     val key: String, // w-lUE5egBqs

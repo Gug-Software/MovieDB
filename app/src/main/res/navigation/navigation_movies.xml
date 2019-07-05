@@ -9,19 +9,40 @@
             android:id="@+id/moviesPopular"
             android:name="gug.co.com.testmovies.ui.movies.MoviesFragment"
             android:label="@string/menu_bottom_popular"
-            tools:layout="@layout/fragment_movies"/>
+            tools:layout="@layout/fragment_movies">
+
+        <argument
+                android:name="filter"
+                app:argType="gug.co.com.testmovies.utils.movies.MoviesFilter"
+                android:defaultValue="POPULAR"/>
+
+    </fragment>
 
     <fragment
             android:id="@+id/moviesTopRated"
             android:name="gug.co.com.testmovies.ui.movies.MoviesFragment"
             android:label="@string/menu_bottom_topRated"
-            tools:layout="@layout/fragment_movies"/>
+            tools:layout="@layout/fragment_movies">
+
+        <argument
+                android:name="filter"
+                app:argType="gug.co.com.testmovies.utils.movies.MoviesFilter"
+                android:defaultValue="TOP_RATED"/>
+
+    </fragment>
 
     <fragment
             android:id="@+id/moviesUpComing"
             android:name="gug.co.com.testmovies.ui.movies.MoviesFragment"
             android:label="@string/menu_bottom_upComing"
-            tools:layout="@layout/fragment_movies"/>
+            tools:layout="@layout/fragment_movies">
+
+        <argument
+                android:name="filter"
+                app:argType="gug.co.com.testmovies.utils.movies.MoviesFilter"
+                android:defaultValue="UP_COMING"/>
+        
+    </fragment>
 
     <fragment
             android:id="@+id/movieDetailFragment"

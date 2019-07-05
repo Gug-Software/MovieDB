@@ -2,7 +2,7 @@ package gug.co.com.testmovies.data.source.local.entities
 
 import androidx.room.Entity
 
-@Entity
+@Entity(primaryKeys = ["movieId", "id"])
 data class DbProductionCompany(
     val movieId: Int,
     val id: Int, // 420
