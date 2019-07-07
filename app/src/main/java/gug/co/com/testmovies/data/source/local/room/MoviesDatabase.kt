@@ -22,9 +22,9 @@ const val DB_NAME = "MoviesDb"
     version = 1
 
 )
-abstract class PostsDataBase : RoomDatabase() {
+abstract class MoviesDatabase : RoomDatabase() {
 
-    abstract val moviesDao: MoviesDao
+    abstract fun moviesDao(): MoviesDao
     abstract val genreDao: GenreDao
     abstract val productionCompanyDao: ProductionCompanyDao
     abstract val spokenLanguageDao: SpokenLanguageDao
@@ -32,15 +32,15 @@ abstract class PostsDataBase : RoomDatabase() {
 
     companion object {
 
-        private lateinit var INSTANCE: PostsDataBase
+        private lateinit var INSTANCE: MoviesDatabase
 
-        fun getDatabase(context: Context): PostsDataBase {
+        fun getDatabase(context: Context): MoviesDatabase {
 
-            synchronized(PostsDataBase::class.java) {
+            synchronized(MoviesDatabase::class.java) {
                 if (!Companion::INSTANCE.isInitialized) {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
-                        PostsDataBase::class.java,
+                        MoviesDatabase::class.java,
                         DB_NAME
                     ).build()
                 }

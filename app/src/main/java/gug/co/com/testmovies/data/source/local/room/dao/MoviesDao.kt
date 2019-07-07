@@ -15,6 +15,9 @@ interface MoviesDao {
     @Query("SELECT * FROM DbMovie WHERE isUpComing= 1")
     suspend fun getUpComingMovies(): List<DbMovie>
 
+    @Query("select * from DbMovie where id=:movieId")
+    suspend fun getMovieById(movieId: Int): DbMovie?
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(vararg movies: DbMovie)
 
