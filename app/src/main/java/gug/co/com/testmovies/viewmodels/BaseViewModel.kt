@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 
-open class BaseAndroidViewModel(
+open class BaseViewModel(
 ) : ViewModel() {
 
     var viewModelJob = Job()

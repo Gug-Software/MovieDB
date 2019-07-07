@@ -48,7 +48,11 @@
             android:id="@+id/movieDetailFragment"
             android:name="gug.co.com.testmovies.ui.detail.MovieDetailFragment"
             android:label="@string/title_movieDetail"
-            tools:layout="@layout/fragment_movie_detail"/>
+            tools:layout="@layout/fragment_movie_detail">
+        <argument
+                android:name="movieId"
+                app:argType="integer"/>
+    </fragment>
 
     <action
             android:id="@+id/action_global_movieDetail"

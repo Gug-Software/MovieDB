@@ -22,7 +22,7 @@ private val moshi = Moshi.Builder()
 /**
  * Main entry point for network access. Call like `Network.devPosts.getPlaylist()`
  */
-object PostsRetrofit {
+object MoviesRetrofit {
 
     // Configure retrofit to parse JSON and use coroutines
     private val retrofit = Retrofit.Builder()

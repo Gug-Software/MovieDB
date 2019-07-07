@@ -6,3 +6,5 @@ const val SORT_BY_RELEASE_DATE_ASC = "release_date.desc"
 
 const val LANGUAGE_ES = "ES"
 const val REGION_COLOMBIA = "CO"
+
+const val IMAGE_PATH = "https://image.tmdb.org/t/p/w500"
