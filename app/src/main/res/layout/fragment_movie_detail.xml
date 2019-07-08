@@ -1,23 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<layout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        style="@style/mm"
-        tools:context=".ui.movies.MoviesFragment">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-            android:text="@string/app_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"/>
+    <data>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <variable
+                name="viewModel"
+                type="gug.co.com.testmovies.viewmodels.moviedetail.MovieDetailViewModel"/>
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            style="@style/mm">
+
+        <!--<ScrollView-->
+        <!--style="@style/mm">-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.detail.MovieDetailFragment">
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_height="210dp"
+                    android:scaleType="fitXY"
+                    imageUrl="@{viewModel.movie.definitiveBackdropPath}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:src="@tools:sample/backgrounds/scenic"
+                    android:id="@+id/backDroph_image"
+                    app:layout_constraintDimensionRatio="V, 4:3"/>
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    app:cardUseCompatPadding="true"
+                    app:cardElevation="8dp"
+                    android:layout_marginTop="8dp"
+                    android:padding="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/backDroph_image"
+                    app:layout_constraintBottom_toBottomOf="@id/backDroph_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintDimensionRatio="V, 2:3"
+                    app:cardCornerRadius="8dp"
+                    android:id="@+id/posterPath_image">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_height="180dp"
+                        style="@style/mm">
+
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            tools:srcCompat="@tools:sample/backgrounds/scenic"
+                            android:id="@+id/movie_image"
+                            android:scaleType="fitXY"
+                            imageUrl="@{viewModel.movie.definitivePosterPath}"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                    tools:text="Nombre de la pelicula"
+                    android:text="@{viewModel.movie.originalTitle}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/name_text"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/backDroph_image"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    app:layout_constraintStart_toEndOf="@+id/posterPath_image"
+                    android:layout_marginStart="8dp"/>
+
+            <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="8dp"
+                    app:cardCornerRadius="4dp"
+                    android:id="@+id/average_card"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/backDroph_image"
+                    app:layout_constraintTop_toBottomOf="@+id/backDroph_image"
+                    app:layout_constraintEnd_toEndOf="@+id/backDroph_image"
+                    app:layout_constraintStart_toStartOf="@+id/backDroph_image"
+                    app:layout_constraintHorizontal_bias="0.95">
+
+                <LinearLayout
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@{viewModel.movie.average}"
+                            tools:text="4.8"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                    tools:text="@string/lorem_words_50"
+                    android:text="@{viewModel.movie.overview}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/overview_text"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/posterPath_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="8dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--</ScrollView>-->
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>
+

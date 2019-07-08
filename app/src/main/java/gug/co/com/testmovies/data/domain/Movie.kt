@@ -11,9 +11,9 @@ data class Movie(
     val voteAverage: Double
 ) {
 
-    var definitivePosterPath: String = getDefinitivePosterPath(posterPath)
-    var definitiveBackdropPath: String = getDefinitivePosterPath(backdropPath)
-    var average = voteAverage.toString()
+    val definitivePosterPath: String = getDefinitivePosterPath(posterPath)
+    val definitiveBackdropPath: String = getDefinitivePosterPath(backdropPath)
+    val average = voteAverage.toString()
 
     private fun getDefinitivePosterPath(posterPath: String): String {
         return "$IMAGE_PATH$posterPath"

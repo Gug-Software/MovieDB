@@ -13,6 +13,7 @@ import gug.co.com.testmovies.R
 import gug.co.com.testmovies.databinding.FragmentMoviesBinding
 import gug.co.com.testmovies.ui.movies.adapter.MovieItemListener
 import gug.co.com.testmovies.ui.movies.adapter.MoviesAdapter
+import gug.co.com.testmovies.utils.movies.MoviesFilter
 import gug.co.com.testmovies.viewmodels.movies.MoviesViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -20,6 +21,7 @@ class MoviesFragment : Fragment(), IContractMovies.View {
 
     lateinit var binding: FragmentMoviesBinding
     lateinit var application: Application
+    lateinit var moviesFilter: MoviesFilter
 
     // Lazy inject ViewModel
     private val viewModel by viewModel<MoviesViewModel>()
@@ -46,8 +48,8 @@ class MoviesFragment : Fragment(), IContractMovies.View {
 
     override fun onStart() {
         super.onStart()
-        val args = MoviesFragmentArgs.fromBundle(arguments!!)
-        viewModel.loadMovies(args.filter)
+        moviesFilter = MoviesFragmentArgs.fromBundle(arguments!!).filter
+        viewModel.loadMovies(moviesFilter)
     }
 
     private fun configureRecyclerMovies() {
@@ -79,7 +81,7 @@ class MoviesFragment : Fragment(), IContractMovies.View {
 
     override fun navigateToMovieDetail(movieId: Int) {
         this.findNavController().navigate(
-            MoviesFragmentDirections.actionGlobalMovieDetail(movieId)
+            MoviesFragmentDirections.actionGlobalMovieDetail(movieId, moviesFilter)
         )
     }
 

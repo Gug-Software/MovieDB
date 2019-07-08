@@ -19,6 +19,7 @@ import gug.co.com.testmovies.repository.detail.MovieDetailRepository
 import gug.co.com.testmovies.repository.movies.MoviesRepository
 import gug.co.com.testmovies.ui.detail.IContractMovieDetail
 import gug.co.com.testmovies.ui.movies.IContractMovies
+import gug.co.com.testmovies.viewmodels.moviedetail.MovieDetailViewModel
 import gug.co.com.testmovies.viewmodels.movies.MoviesViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -54,11 +55,12 @@ class MoviesModule {
             // Movie Detail Repository with Remote Retrofit and Local Room Dao
             single<IContractMovieDetail.Model> { MovieDetailRepository(get(), get()) }
 
-            // define SplashViewModel
+            // define MoviesViewModel
             viewModel { MoviesViewModel(get()) }
+            // define MovieDetailViewModel
+            viewModel { MovieDetailViewModel(get()) }
 
         }
-
 
     }
 }

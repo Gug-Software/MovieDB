@@ -5,6 +5,7 @@ import gug.co.com.testmovies.data.source.local.room.entities.DbMovie
 import gug.co.com.testmovies.data.source.local.room.entities.DbProductionCompany
 import gug.co.com.testmovies.data.source.local.room.entities.DbSpokenLanguage
 import gug.co.com.testmovies.utils.Result
+import gug.co.com.testmovies.utils.movies.MoviesFilter
 
 interface IContractMovieDetail {
 
@@ -14,11 +15,13 @@ interface IContractMovieDetail {
 
     interface ViewModel {
 
+        fun loadMovie(movieId: Int, moviesFilter: MoviesFilter)
+
     }
 
     interface Model {
 
-        suspend fun getMovieDetailById(movieId: Int): Result<DbMovie>
+        suspend fun getMovieDetailById(movieId: Int, moviesFilter: MoviesFilter): Result<DbMovie>
 
         suspend fun getGenresByMovieId(movieId: Int): Result<List<DbGenre>>
 

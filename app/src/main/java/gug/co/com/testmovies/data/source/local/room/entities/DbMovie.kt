@@ -3,6 +3,7 @@ package gug.co.com.testmovies.data.source.local.room.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import gug.co.com.testmovies.data.domain.Movie
+import gug.co.com.testmovies.data.domain.MovieDetail
 
 @Entity
 data class DbMovie(
@@ -46,4 +47,17 @@ fun List<DbMovie>.asDomainModel(): List<Movie> {
             voteAverage = it.voteAverage
         )
     }
+}
+
+fun DbMovie.asDomainModelDetail(): MovieDetail {
+
+    return MovieDetail(
+        id = this.id,
+        originalTitle = this.originalTitle,
+        backdropPath = this.backdropPath,
+        posterPath = this.posterPath,
+        voteAverage = this.voteAverage,
+        overview = this.overview
+    )
+
 }

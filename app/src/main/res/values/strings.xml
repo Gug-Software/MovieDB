@@ -13,4 +13,6 @@
 
     <string name="title_movieDetail">Detalle de pelicula</string>
 
+    <string name="lorem_words_50">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean congue nisl ante, vel facilisis ex mattis at. Nullam luctus egestas odio eget interdum. In congue, velit sit amet ullamcorper dictum, dolor lectus pulvinar massa, non sodales arcu orci a mauris. Etiam posuere vulputate magna at iaculis. Curabitur gravida leo tortor.</string>
+
 </resources>

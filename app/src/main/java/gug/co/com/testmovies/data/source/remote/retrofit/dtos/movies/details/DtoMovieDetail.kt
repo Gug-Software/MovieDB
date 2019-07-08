@@ -5,6 +5,7 @@ import gug.co.com.testmovies.data.source.local.room.entities.DbGenre
 import gug.co.com.testmovies.data.source.local.room.entities.DbMovie
 import gug.co.com.testmovies.data.source.local.room.entities.DbProductionCompany
 import gug.co.com.testmovies.data.source.local.room.entities.DbSpokenLanguage
+import gug.co.com.testmovies.utils.movies.MoviesFilter
 
 data class DtoMovieDetail(
 
@@ -15,12 +16,12 @@ data class DtoMovieDetail(
     val backdropPath: String, // /7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg
 
     @Json(name = "belongs_to_collection")
-    val dtoBelongsToCollection: DtoBelongsToCollection,
+    val dtoBelongsToCollection: DtoBelongsToCollection?,
 
     @Json(name = "budget")
     val budget: Int, // 356000000
 
-    @Json(name = "dtoGenres")
+    @Json(name = "genres")
     val dtoGenres: List<DtoGenre>,
 
     @Json(name = "homepage")
@@ -88,9 +89,9 @@ data class DtoMovieDetail(
 /**
  * Transform a MovieDetail DTO into a entity in db local
  */
-fun DtoMovieDetail.asDatabaseModel(): DbMovie {
+fun DtoMovieDetail.asDatabaseModel(moviesFilter: MoviesFilter): DbMovie {
 
-    return DbMovie(
+    val dbMovie = DbMovie(
         id = this.id,
         adult = this.adult,
         backdropPath = this.backdropPath,
@@ -115,6 +116,14 @@ fun DtoMovieDetail.asDatabaseModel(): DbMovie {
         isTopRated = false,
         isUpComing = false
     )
+
+    when (moviesFilter) {
+        MoviesFilter.POPULAR -> dbMovie.isPopular = true
+        MoviesFilter.TOP_RATED -> dbMovie.isTopRated = true
+        MoviesFilter.UP_COMING -> dbMovie.isUpComing = true
+    }
+
+    return dbMovie
 
 }
 

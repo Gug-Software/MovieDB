@@ -52,6 +52,9 @@
         <argument
                 android:name="movieId"
                 app:argType="integer"/>
+        <argument
+                android:name="filter"
+                app:argType="gug.co.com.testmovies.utils.movies.MoviesFilter"/>
     </fragment>
 
     <action
