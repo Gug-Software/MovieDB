@@ -13,6 +13,7 @@ data class Movie(
 
     var definitivePosterPath: String = getDefinitivePosterPath(posterPath)
     var definitiveBackdropPath: String = getDefinitivePosterPath(backdropPath)
+    var average = voteAverage.toString()
 
     private fun getDefinitivePosterPath(posterPath: String): String {
         return "$IMAGE_PATH$posterPath"

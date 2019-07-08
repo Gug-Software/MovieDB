@@ -63,7 +63,7 @@ interface MoviesAPI {
      */
     @GET("movie/{id}")
     fun getMovieDetail(
-        @Path("id") id: Integer, @Query("api_key") apiKey: String,
+        @Path("id") id: Int, @Query("api_key") apiKey: String,
         @Query("language") language: String
     ): Deferred<DtoMovieDetail>
 

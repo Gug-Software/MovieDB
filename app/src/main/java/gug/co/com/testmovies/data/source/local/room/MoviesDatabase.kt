@@ -25,10 +25,10 @@ const val DB_NAME = "MoviesDb"
 abstract class MoviesDatabase : RoomDatabase() {
 
     abstract fun moviesDao(): MoviesDao
-    abstract val genreDao: GenreDao
-    abstract val productionCompanyDao: ProductionCompanyDao
-    abstract val spokenLanguageDao: SpokenLanguageDao
-    abstract val videosDao: VideosDao
+    abstract fun genreDao(): GenreDao
+    abstract fun productionCompanyDao(): ProductionCompanyDao
+    abstract fun spokenLanguageDao(): SpokenLanguageDao
+    abstract fun videosDao(): VideosDao
 
     companion object {
 
