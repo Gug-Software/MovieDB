@@ -7,8 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import gug.co.com.testmovies.R
 import gug.co.com.testmovies.databinding.FragmentMovieDetailBinding
+import gug.co.com.testmovies.ui.detail.adapter.GenreItemAdapter
+import gug.co.com.testmovies.ui.detail.adapter.ProductionCompanyItemAdapter
+import gug.co.com.testmovies.ui.detail.adapter.SpokenLanguageItemAdapter
+import gug.co.com.testmovies.ui.movies.adapter.MovieItemListener
+import gug.co.com.testmovies.ui.movies.adapter.MoviesAdapter
 import gug.co.com.testmovies.utils.movies.MoviesFilter
 import gug.co.com.testmovies.viewmodels.moviedetail.MovieDetailViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -53,6 +59,40 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun configureRecyclers() {
+
+        configureRecyclerGenres()
+        configureRecyclerProductionCompanies()
+        configureRecyclerSpokenLanguages()
+    }
+
+    private fun configureRecyclerSpokenLanguages() {
+
+        val adapter = SpokenLanguageItemAdapter()
+        binding.spokenLanguagesRecycler.adapter = adapter
+        viewModel.spokenLanguages.observe(this, Observer {
+            adapter.submitList(it)
+        })
+
+    }
+
+    private fun configureRecyclerProductionCompanies() {
+
+        val adapter = ProductionCompanyItemAdapter()
+        binding.productionCompaniesRecycler.adapter = adapter
+        viewModel.productionCompanies.observe(this, Observer {
+            adapter.submitList(it)
+        })
+
+    }
+
+    private fun configureRecyclerGenres() {
+
+        val adapter = GenreItemAdapter()
+        binding.genresRecycler.adapter = adapter
+        viewModel.genres.observe(this, Observer {
+            adapter.submitList(it)
+        })
+
     }
 
     private fun defineObservers() {

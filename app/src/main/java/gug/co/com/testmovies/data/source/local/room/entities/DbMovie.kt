@@ -44,7 +44,9 @@ fun List<DbMovie>.asDomainModel(): List<Movie> {
             originalTitle = it.originalTitle,
             backdropPath = it.backdropPath,
             posterPath = it.posterPath,
-            voteAverage = it.voteAverage
+            voteAverage = it.voteAverage,
+            releaseDate = it.releaseDate,
+            runtime = it.runtime
         )
     }
 }
@@ -57,7 +59,10 @@ fun DbMovie.asDomainModelDetail(): MovieDetail {
         backdropPath = this.backdropPath,
         posterPath = this.posterPath,
         voteAverage = this.voteAverage,
-        overview = this.overview
+        overview = this.overview,
+        releaseDate = this.releaseDate,
+        runtime = this.runtime
+
     )
 
 }

@@ -15,122 +15,197 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
             style="@style/mm">
 
-        <!--<ScrollView-->
-        <!--style="@style/mm">-->
+        <ScrollView
+                style="@style/mm">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".ui.detail.MovieDetailFragment">
-
-            <ImageView
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_height="210dp"
-                    android:scaleType="fitXY"
-                    imageUrl="@{viewModel.movie.definitiveBackdropPath}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:src="@tools:sample/backgrounds/scenic"
-                    android:id="@+id/backDroph_image"
-                    app:layout_constraintDimensionRatio="V, 4:3"/>
+                    android:layout_height="match_parent"
+                    tools:context=".ui.detail.MovieDetailFragment">
 
-            <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    app:cardUseCompatPadding="true"
-                    app:cardElevation="8dp"
-                    android:layout_marginTop="8dp"
-                    android:padding="16dp"
-                    app:layout_constraintTop_toBottomOf="@id/backDroph_image"
-                    app:layout_constraintBottom_toBottomOf="@id/backDroph_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintDimensionRatio="V, 2:3"
-                    app:cardCornerRadius="8dp"
-                    android:id="@+id/posterPath_image">
+                <ImageView
+                        android:layout_width="match_parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_height="210dp"
+                        android:scaleType="fitXY"
+                        imageUrl="@{viewModel.movie.definitiveBackdropPath}"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:src="@tools:sample/backgrounds/scenic"
+                        android:id="@+id/backDroph_image"
+                        app:layout_constraintDimensionRatio="V, 4:3"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_height="180dp"
-                        style="@style/mm">
+                <androidx.cardview.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        app:cardUseCompatPadding="true"
+                        app:cardElevation="8dp"
+                        android:layout_marginTop="8dp"
+                        android:padding="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/backDroph_image"
+                        app:layout_constraintBottom_toBottomOf="@id/backDroph_image"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintDimensionRatio="V, 2:3"
+                        app:cardCornerRadius="8dp"
+                        android:id="@+id/posterPath_image">
 
-                    <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            tools:srcCompat="@tools:sample/backgrounds/scenic"
-                            android:id="@+id/movie_image"
-                            android:scaleType="fitXY"
-                            imageUrl="@{viewModel.movie.definitivePosterPath}"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_height="180dp"
+                            style="@style/mm">
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                tools:srcCompat="@tools:sample/backgrounds/scenic"
+                                android:id="@+id/movie_image"
+                                android:scaleType="fitXY"
+                                imageUrl="@{viewModel.movie.definitivePosterPath}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"/>
 
-            </androidx.cardview.widget.CardView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                    tools:text="Nombre de la pelicula"
-                    android:text="@{viewModel.movie.originalTitle}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/name_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/backDroph_image"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    app:layout_constraintStart_toEndOf="@+id/posterPath_image"
-                    android:layout_marginStart="8dp"/>
+                </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardElevation="8dp"
-                    app:cardCornerRadius="4dp"
-                    android:id="@+id/average_card"
-                    android:layout_marginBottom="16dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/backDroph_image"
-                    app:layout_constraintTop_toBottomOf="@+id/backDroph_image"
-                    app:layout_constraintEnd_toEndOf="@+id/backDroph_image"
-                    app:layout_constraintStart_toStartOf="@+id/backDroph_image"
-                    app:layout_constraintHorizontal_bias="0.95">
+                <TextView
+                        tools:text="Nombre de la pelicula"
+                        android:text="@{viewModel.movie.originalTitle}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/name_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/backDroph_image"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        app:layout_constraintStart_toEndOf="@+id/posterPath_image"
+                        android:layout_marginStart="8dp"/>
 
-                <LinearLayout
-                        android:paddingTop="4dp"
-                        android:paddingBottom="4dp"
-                        android:paddingStart="8dp"
-                        android:paddingEnd="8dp"
+                <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        app:cardElevation="8dp"
+                        app:cardCornerRadius="4dp"
+                        android:id="@+id/average_card"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/backDroph_image"
+                        app:layout_constraintTop_toBottomOf="@+id/backDroph_image"
+                        app:layout_constraintEnd_toEndOf="@+id/backDroph_image"
+                        app:layout_constraintStart_toStartOf="@+id/backDroph_image"
+                        app:layout_constraintHorizontal_bias="0.95">
 
-                    <TextView
+                    <LinearLayout
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@{viewModel.movie.average}"
-                            tools:text="4.8"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
-                </LinearLayout>
+                            android:layout_height="wrap_content">
 
-            </androidx.cardview.widget.CardView>
+                        <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@{viewModel.movie.average}"
+                                tools:text="4.8"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                    </LinearLayout>
 
-            <TextView
-                    tools:text="@string/lorem_words_50"
-                    android:text="@{viewModel.movie.overview}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/overview_text"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/posterPath_image"
-                    app:layout_constraintStart_toStartOf="parent"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="8dp"/>
+                </androidx.cardview.widget.CardView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                        tools:text="@string/lorem_words_50"
+                        android:text="@{viewModel.movie.overview}"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/overview_text"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/posterPath_image"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="8dp"/>
 
-        <!--</ScrollView>-->
+                <TextView
+                        android:text="@string/text_genres"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/genres_text"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/overview_text"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="16dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/genres_text"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:id="@+id/genres_recycler"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/recycler_item_genre"
+                        android:layout_marginEnd="8dp"/>
+
+                <TextView
+                        android:text="@string/text_productionCompanies"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/productionCompanies_text"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/genres_recycler"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="16dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/productionCompanies_text"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp"
+                        android:orientation="horizontal"
+                        tools:listitem="@layout/recycler_item_productioncompany"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="8dp"
+                        android:id="@+id/productionCompanies_recycler"/>
+
+                <TextView
+                        android:text="@string/text_languages"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/spokenLanguage_text"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/productionCompanies_recycler"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="16dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/spokenLanguage_text"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:layout_marginEnd="8dp"
+                        tools:listitem="@layout/recycler_item_language"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:orientation="horizontal"
+                        android:id="@+id/spokenLanguages_recycler"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

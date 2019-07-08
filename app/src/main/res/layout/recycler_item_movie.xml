@@ -101,6 +101,41 @@
 
         </androidx.cardview.widget.CardView>
 
+        <TextView
+                tools:text="181 mins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/runtime_text"
+                android:drawablePadding="4dp"
+                android:gravity="center_vertical"
+                android:text="@{movie.runtimeMins}"
+                android:drawableTint="@color/secondaryColor"
+                android:drawableLeft="@drawable/ic_access_time_black_24dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintStart_toEndOf="@+id/average_card"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/releaseDate_text"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/average_card"/>
+
+        <TextView
+                tools:text="2019-04-24"
+                android:text="@{movie.releaseDate}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:gravity="center"
+                android:drawableTint="@color/secondaryColor"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                android:id="@+id/releaseDate_text"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                app:layout_constraintStart_toEndOf="@+id/runtime_text"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/average_card"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
