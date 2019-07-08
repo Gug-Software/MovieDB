@@ -6,6 +6,8 @@ enum class MoviesFilter {
 
     TOP_RATED, // for top rated movies
 
-    UP_COMING // for upcoming movies
+    UP_COMING,// for upcoming movies
+
+    GLOBAL // for global search
 
 }

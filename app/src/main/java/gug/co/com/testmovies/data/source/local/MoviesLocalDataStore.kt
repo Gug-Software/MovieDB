@@ -18,6 +18,8 @@ interface MoviesLocalDataStore {
 
     suspend fun searchUpComingMovies(query: String): Result<List<DbMovie>>
 
+    suspend fun searchMovies(query: String): Result<List<DbMovie>>
+
     suspend fun insertAll(vararg movies: DbMovie)
 
     suspend fun update(movie: DbMovie)

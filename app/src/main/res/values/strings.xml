@@ -16,6 +16,7 @@
     <string name="menu_bottom_popular">Populares</string>
     <string name="menu_bottom_topRated">En el Top</string>
     <string name="menu_bottom_upComing">Pronto</string>
+    <string name="menu_search">Busqueda</string>
 
     <string name="title_movieDetail">Detalle de pelicula</string>
 

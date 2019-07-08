@@ -4,9 +4,7 @@ import android.app.Application
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,6 +15,7 @@ import gug.co.com.testmovies.ui.movies.adapter.MovieItemListener
 import gug.co.com.testmovies.ui.movies.adapter.MoviesAdapter
 import gug.co.com.testmovies.utils.movies.MoviesFilter
 import gug.co.com.testmovies.viewmodels.movies.MoviesViewModel
+import kotlinx.android.synthetic.main.fragment_movies.*
 import kotlinx.coroutines.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -25,6 +24,7 @@ class MoviesFragment : Fragment(), IContractMovies.View {
     lateinit var binding: FragmentMoviesBinding
     lateinit var application: Application
     lateinit var moviesFilter: MoviesFilter
+    var isGlobal = false
 
     // Lazy inject ViewModel
     private val viewModel by viewModel<MoviesViewModel>()
@@ -34,6 +34,8 @@ class MoviesFragment : Fragment(), IContractMovies.View {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        setHasOptionsMenu(true)
 
         binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_movies, container, false
@@ -67,7 +69,7 @@ class MoviesFragment : Fragment(), IContractMovies.View {
                     if (searchText.isEmpty()) {
                         viewModel.resetSearch()
                     } else {
-                        viewModel.filterMoviesByQuery(searchText, moviesFilter)
+                        viewModel.filterMoviesByQuery(searchText, moviesFilter, isGlobal)
                     }
                 }
             }
@@ -85,8 +87,16 @@ class MoviesFragment : Fragment(), IContractMovies.View {
         super.onStart()
 
         moviesFilter = MoviesFragmentArgs.fromBundle(arguments!!).filter
-        viewModel.loadMovies(moviesFilter)
-        binding.filterInputText.setText("")
+        isGlobal = MoviesFragmentArgs.fromBundle(arguments!!).isGlobal
+        if (!isGlobal) {
+            viewModel.loadMovies(moviesFilter)
+        } else {
+            setHasOptionsMenu(false)
+        }
+
+        if (!filter_inputText.text?.isEmpty()!!) {
+            viewModel.filterMoviesByQuery(filter_inputText.text.toString(), moviesFilter, isGlobal)
+        }
 
     }
 
@@ -123,5 +133,7 @@ class MoviesFragment : Fragment(), IContractMovies.View {
         )
     }
 
-
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_overflow_movies, menu)
+    }
 }

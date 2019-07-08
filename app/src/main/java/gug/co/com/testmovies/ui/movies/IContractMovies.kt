@@ -24,7 +24,7 @@ interface IContractMovies {
 
         fun resetSearch()
 
-        fun filterMoviesByQuery(query: String, moviesFilter: MoviesFilter)
+        fun filterMoviesByQuery(query: String, moviesFilter: MoviesFilter, isGlobal: Boolean)
 
     }
 
@@ -36,7 +36,8 @@ interface IContractMovies {
 
         suspend fun searchMoviesByQueryAndFilter(
             query: String,
-            moviesFilter: MoviesFilter
+            moviesFilter: MoviesFilter?,
+            isGlobal: Boolean
         ): Result<List<DbMovie>>
 
     }

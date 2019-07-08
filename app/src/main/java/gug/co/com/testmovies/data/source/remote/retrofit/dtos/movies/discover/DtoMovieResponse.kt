@@ -22,7 +22,7 @@ data class DtoMovieResponse(
 
 )
 
-fun List<DtoMovie>.asDatabaseModel(moviesFilter: MoviesFilter): Array<DbMovie> {
+fun List<DtoMovie>.asDatabaseModel(moviesFilter: MoviesFilter?): Array<DbMovie> {
 
     return map {
         val dbMovie = DbMovie(
@@ -51,10 +51,13 @@ fun List<DtoMovie>.asDatabaseModel(moviesFilter: MoviesFilter): Array<DbMovie> {
             isUpComing = false
         )
 
-        when (moviesFilter) {
-            MoviesFilter.POPULAR -> dbMovie.isPopular = true
-            MoviesFilter.TOP_RATED -> dbMovie.isTopRated = true
-            MoviesFilter.UP_COMING -> dbMovie.isUpComing = true
+        if (moviesFilter != null) {
+            when (moviesFilter) {
+                MoviesFilter.POPULAR -> dbMovie.isPopular = true
+                MoviesFilter.TOP_RATED -> dbMovie.isTopRated = true
+                MoviesFilter.UP_COMING -> dbMovie.isUpComing = true
+                MoviesFilter.GLOBAL -> dbMovie.isUpComing = false
+            }
         }
 
         dbMovie

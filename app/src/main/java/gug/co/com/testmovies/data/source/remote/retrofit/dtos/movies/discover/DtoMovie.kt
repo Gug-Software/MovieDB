@@ -10,7 +10,7 @@ data class DtoMovie(
     val adult: Boolean, // false
 
     @Json(name = "backdrop_path")
-    val backdropPath: String, // /8sNz2DxYiYqGkxk66U8BqvuZZjE.jpg
+    val backdropPath: String?, // /8sNz2DxYiYqGkxk66U8BqvuZZjE.jpg
 
     @Json(name = "genre_ids")
     val genreIds: List<Int>,
@@ -31,7 +31,7 @@ data class DtoMovie(
     val popularity: Double, // 78.279
 
     @Json(name = "poster_path")
-    val posterPath: String, // /xqR4ABkFTFYe8NDJi3knwWX7zfn.jpg
+    val posterPath: String?, // /xqR4ABkFTFYe8NDJi3knwWX7zfn.jpg
 
     @Json(name = "release_date")
     val releaseDate: String, // 2018-10-06

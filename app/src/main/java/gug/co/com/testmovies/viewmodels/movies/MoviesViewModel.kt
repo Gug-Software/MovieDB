@@ -22,7 +22,7 @@ class MoviesViewModel(
 
     private val _moviesFromRepo = MutableLiveData<List<Movie>>().apply { value = emptyList() }
 
-    private val _status = MutableLiveData<NetworkApiStatus>().apply { value = NetworkApiStatus.LOADING }
+    private val _status = MutableLiveData<NetworkApiStatus>()
     val status: LiveData<NetworkApiStatus> = _status
 
     private val _navToDetailMovie = MutableLiveData<Movie>()
@@ -59,13 +59,15 @@ class MoviesViewModel(
 
     override fun filterMoviesByQuery(
         query: String,
-        moviesFilter: MoviesFilter
+        moviesFilter: MoviesFilter,
+        isGlobal: Boolean
     ) {
 
         uiScope.launch {
             try {
                 _status.value = NetworkApiStatus.LOADING
-                val moviesSearchFromRepository = moviesRepository.searchMoviesByQueryAndFilter(query, moviesFilter)
+                val moviesSearchFromRepository =
+                    moviesRepository.searchMoviesByQueryAndFilter(query, moviesFilter, isGlobal)
                 if (moviesSearchFromRepository is Result.Success) {
                     _movies.value = ArrayList(moviesSearchFromRepository.data.asDomainModel())
                     _status.value = NetworkApiStatus.DONE

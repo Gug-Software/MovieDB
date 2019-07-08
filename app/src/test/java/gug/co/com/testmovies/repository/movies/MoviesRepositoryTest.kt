@@ -150,7 +150,7 @@ class MoviesRepositoryTest {
 
         val movies = moviesRepository.getMoviesByFilter(MoviesFilter.POPULAR) as Result.Success
         val movieSearch =
-            moviesRepository.searchMoviesByQueryAndFilter("Title-1", MoviesFilter.POPULAR) as Result.Success
+            moviesRepository.searchMoviesByQueryAndFilter("Title-1", MoviesFilter.POPULAR, false) as Result.Success
 
         MatcherAssert.assertThat(movieSearch.data.size, CoreMatchers.`is`(1))
         MatcherAssert.assertThat(movieSearch.data[0].id, CoreMatchers.`is`(dbMovie1.id))
@@ -164,7 +164,7 @@ class MoviesRepositoryTest {
 
         val movies = moviesRepository.getMoviesByFilter(MoviesFilter.TOP_RATED) as Result.Success
         val movieSearch =
-            moviesRepository.searchMoviesByQueryAndFilter("Title-3", MoviesFilter.TOP_RATED) as Result.Success
+            moviesRepository.searchMoviesByQueryAndFilter("Title-3", MoviesFilter.TOP_RATED, false) as Result.Success
 
         MatcherAssert.assertThat(movieSearch.data.size, CoreMatchers.`is`(1))
         MatcherAssert.assertThat(movieSearch.data[0].id, CoreMatchers.`is`(dbMovie3.id))
@@ -179,7 +179,7 @@ class MoviesRepositoryTest {
 
         val movies = moviesRepository.getMoviesByFilter(MoviesFilter.UP_COMING) as Result.Success
         val movieSearch =
-            moviesRepository.searchMoviesByQueryAndFilter("Title-5", MoviesFilter.UP_COMING) as Result.Success
+            moviesRepository.searchMoviesByQueryAndFilter("Title-5", MoviesFilter.UP_COMING, false) as Result.Success
 
         MatcherAssert.assertThat(movieSearch.data.size, CoreMatchers.`is`(1))
         MatcherAssert.assertThat(movieSearch.data[0].id, CoreMatchers.`is`(dbMovie5.id))

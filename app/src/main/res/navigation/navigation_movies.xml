@@ -16,6 +16,11 @@
                 app:argType="gug.co.com.testmovies.utils.movies.MoviesFilter"
                 android:defaultValue="POPULAR"/>
 
+        <argument
+                android:name="isGlobal"
+                app:argType="boolean"
+                android:defaultValue="false"/>
+
     </fragment>
 
     <fragment
@@ -29,6 +34,11 @@
                 app:argType="gug.co.com.testmovies.utils.movies.MoviesFilter"
                 android:defaultValue="TOP_RATED"/>
 
+        <argument
+                android:name="isGlobal"
+                app:argType="boolean"
+                android:defaultValue="false"/>
+
     </fragment>
 
     <fragment
@@ -41,8 +51,32 @@
                 android:name="filter"
                 app:argType="gug.co.com.testmovies.utils.movies.MoviesFilter"
                 android:defaultValue="UP_COMING"/>
-        
+
+        <argument
+                android:name="isGlobal"
+                app:argType="boolean"
+                android:defaultValue="false"/>
+
     </fragment>
+
+    <fragment
+            android:id="@+id/moviesGlobalSearch"
+            android:name="gug.co.com.testmovies.ui.movies.MoviesFragment"
+            tools:layout="@layout/fragment_movies"
+            android:label="@string/menu_search">
+
+        <argument
+                android:name="filter"
+                app:argType="gug.co.com.testmovies.utils.movies.MoviesFilter"
+                android:defaultValue="GLOBAL"/>
+
+        <argument
+                android:name="isGlobal"
+                app:argType="boolean"
+                android:defaultValue="true"/>
+
+    </fragment>
+
 
     <fragment
             android:id="@+id/movieDetailFragment"
@@ -54,8 +88,10 @@
                 app:argType="integer"/>
         <argument
                 android:name="filter"
-                app:argType="gug.co.com.testmovies.utils.movies.MoviesFilter"/>
+                app:argType="gug.co.com.testmovies.utils.movies.MoviesFilter"
+                />
     </fragment>
+
 
     <action
             android:id="@+id/action_global_movieDetail"

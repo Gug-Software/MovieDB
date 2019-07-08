@@ -63,8 +63,22 @@ class MoviesRoomLocalDataStore(
         }
     }
 
+    override suspend fun searchMovies(query: String): Result<List<DbMovie>> = withContext(ioDispatcher) {
+        return@withContext try {
+            Success(moviesDao.searchMovies(query))
+        } catch (e: Exception) {
+            Error(e)
+        }
+    }
+
+
     override suspend fun insertAll(vararg movies: DbMovie) = withContext(ioDispatcher) {
-        moviesDao.insertAll(*movies)
+        try {
+            moviesDao.insertAll(*movies)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
     override suspend fun update(movie: DbMovie) = withContext(ioDispatcher) {

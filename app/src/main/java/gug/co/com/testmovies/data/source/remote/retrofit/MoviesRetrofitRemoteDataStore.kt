@@ -2,6 +2,7 @@ package gug.co.com.testmovies.data.source.remote.retrofit
 
 import gug.co.com.testmovies.data.source.remote.MoviesRemoteDataStore
 import gug.co.com.testmovies.data.source.remote.retrofit.dtos.movies.discover.DtoMovieResponse
+import gug.co.com.testmovies.data.source.remote.retrofit.dtos.search.movies.DtoSearchMoviesResponse
 import gug.co.com.testmovies.utils.Result
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -47,4 +48,19 @@ class MoviesRetrofitRemoteDataStore(
             Result.Error(e)
         }
     }
+
+    override suspend fun searchMovies(query: String): Result<DtoSearchMoviesResponse> = withContext(ioDispatcher) {
+        return@withContext try {
+            Result.Success(
+                moviesAPI.searchMovieByQuery(
+                    API_KEY,
+                    query,
+                    LANGUAGE_ES, REGION_COLOMBIA
+                ).await()
+            )
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
 }

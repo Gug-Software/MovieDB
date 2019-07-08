@@ -1,5 +1,6 @@
 package gug.co.com.testmovies.repository.movies
 
+import android.provider.Settings
 import gug.co.com.testmovies.data.source.local.MoviesLocalDataStore
 import gug.co.com.testmovies.data.source.local.room.entities.DbMovie
 import gug.co.com.testmovies.data.source.remote.MoviesRemoteDataStore
@@ -55,49 +56,65 @@ class MoviesRepository(
 
     }
 
-    private suspend fun fetchMoviesFromLocal(moviesFilter: MoviesFilter): Result<List<DbMovie>> {
+    private suspend fun fetchMoviesFromLocal(
+        moviesFilter: MoviesFilter
+    ): Result<List<DbMovie>> {
 
         return when (moviesFilter) {
             MoviesFilter.POPULAR -> moviesLocalDataStore.getPopularMovies()
             MoviesFilter.TOP_RATED -> moviesLocalDataStore.getTopRatedMovies()
             MoviesFilter.UP_COMING -> moviesLocalDataStore.getUpComingMovies()
-            else -> moviesLocalDataStore.getPopularMovies()
+            MoviesFilter.GLOBAL -> TODO()
         }
     }
 
-    private suspend fun fetchMoviesFromRemote(moviesFilter: MoviesFilter): Result<DtoMovieResponse> {
+    private suspend fun fetchMoviesFromRemote(
+        moviesFilter: MoviesFilter
+    ): Result<DtoMovieResponse> {
 
         return when (moviesFilter) {
             MoviesFilter.POPULAR -> moviesRemoteDataStore.getPopularMovies()
             MoviesFilter.TOP_RATED -> moviesRemoteDataStore.getTopRatedMovies()
             MoviesFilter.UP_COMING -> moviesRemoteDataStore.getUpComingMovies()
-            else -> moviesRemoteDataStore.getPopularMovies()
+            MoviesFilter.GLOBAL -> TODO()
         }
 
     }
 
     override suspend fun searchMoviesByQueryAndFilter(
         query: String,
-        moviesFilter: MoviesFilter
+        moviesFilter: MoviesFilter?,
+        isGlobal: Boolean
     ): Result<List<DbMovie>> {
 
         return withContext(ioDispatcher) {
-            val moviesSearch = searchMoviesFromLocal(query, moviesFilter)
-            if (moviesSearch is Result.Success) {
-                return@withContext moviesSearch
+            if (isGlobal) {
+                var moviesSearchRemote = moviesRemoteDataStore.searchMovies(query)
+                (moviesSearchRemote as Result.Success)?.let { data ->
+                    // save the movies from remote in local store
+                    moviesLocalDataStore.insertAll(*data.data.results.asDatabaseModel(moviesFilter))
+                    return@withContext moviesLocalDataStore.searchMovies(query)
+                }
             } else {
-                return@withContext Result.Error(Exception("Empty search"))
+                val moviesSearch = searchMoviesFromLocal(query, moviesFilter)
+                if (moviesSearch is Result.Success) {
+                    return@withContext moviesSearch
+                } else {
+                    return@withContext Result.Error(Exception("Empty search"))
+                }
             }
-
         }
+
+
     }
 
-    private suspend fun searchMoviesFromLocal(query: String, moviesFilter: MoviesFilter): Result<List<DbMovie>> {
+    private suspend fun searchMoviesFromLocal(query: String, moviesFilter: MoviesFilter?): Result<List<DbMovie>> {
 
         return when (moviesFilter) {
             MoviesFilter.POPULAR -> moviesLocalDataStore.searchPopularMovies(query)
             MoviesFilter.TOP_RATED -> moviesLocalDataStore.searchTopRatedMovies(query)
             MoviesFilter.UP_COMING -> moviesLocalDataStore.searchUpComingMovies(query)
+            else -> moviesLocalDataStore.searchMovies(query)
         }
 
     }

@@ -24,6 +24,9 @@ interface MoviesDao {
     @Query("SELECT * FROM DbMovie WHERE isUpComing= 1 and originalTitle LIKE '%' || :query || '%' ")
     suspend fun searchUpComingMovies(query: String): List<DbMovie>
 
+    @Query("SELECT * FROM DbMovie WHERE originalTitle LIKE '%' || :query || '%' ")
+    suspend fun searchMovies(query: String): List<DbMovie>
+
     @Query("select * from DbMovie where id=:movieId")
     suspend fun getMovieById(movieId: Int): DbMovie?
 
