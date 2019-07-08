@@ -47,3 +47,11 @@ fun hideFromApiStatus(view: View, status: NetworkApiStatus?) {
         else -> view.visibility = View.VISIBLE
     }
 }
+
+@BindingAdapter("showIfZero")
+fun showIfZero(view: View, postSize: Int) {
+    when (postSize) {
+        0 -> view.visibility = View.VISIBLE
+        else -> view.visibility = View.GONE
+    }
+}

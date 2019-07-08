@@ -30,7 +30,6 @@ class MoviesRepository(
             return@withContext Result.Error(Exception("Illegal state"))
         }
 
-
     }
 
     private suspend fun fetchMoviesFromLocalOrRemote(
@@ -75,6 +74,31 @@ class MoviesRepository(
             else -> moviesRemoteDataStore.getPopularMovies()
         }
 
+    }
+
+    override suspend fun searchMoviesByQueryAndFilter(
+        query: String,
+        moviesFilter: MoviesFilter
+    ): Result<List<DbMovie>> {
+
+        return withContext(ioDispatcher) {
+            val moviesSearch = searchMoviesFromLocal(query, moviesFilter)
+            if (moviesSearch is Result.Success) {
+                return@withContext moviesSearch
+            } else {
+                return@withContext Result.Error(Exception("Empty search"))
+            }
+
+        }
+    }
+
+    private suspend fun searchMoviesFromLocal(query: String, moviesFilter: MoviesFilter): Result<List<DbMovie>> {
+
+        return when (moviesFilter) {
+            MoviesFilter.POPULAR -> moviesLocalDataStore.searchPopularMovies(query)
+            MoviesFilter.TOP_RATED -> moviesLocalDataStore.searchTopRatedMovies(query)
+            MoviesFilter.UP_COMING -> moviesLocalDataStore.searchUpComingMovies(query)
+        }
 
     }
 

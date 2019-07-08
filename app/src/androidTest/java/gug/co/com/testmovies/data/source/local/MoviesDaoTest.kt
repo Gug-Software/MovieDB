@@ -43,6 +43,7 @@ class MoviesDaoTest {
             getApplicationContext(),
             MoviesDatabase::class.java
         ).allowMainThreadQueries().build()
+
     }
 
     @After
@@ -118,6 +119,67 @@ class MoviesDaoTest {
 
         // WHEN - Get Populars movies from the database
         val movies = database.moviesDao().getUpComingMovies()
+
+        // THEN - The loaded data contains the expected values
+        assertThat(movies.size, CoreMatchers.`is`(1))
+        assertThat(movies[0].id, CoreMatchers.`is`(movie.id))
+        assertThat(movies[0].title, CoreMatchers.`is`(movie.title))
+        assertThat(movies[0].posterPath, CoreMatchers.`is`(movie.posterPath))
+        assertThat(movies[0].voteAverage, CoreMatchers.`is`(movie.voteAverage))
+    }
+
+
+    @Test
+    fun insertPopularMovieAndSearchPopularMovies() = runBlockingTest {
+        val dbutils = DbEntitiesTestUtils()
+        val popular = MoviesFilter.POPULAR
+
+        // GIVEN - insert a DbMovie
+        val movie = dbutils.getDbMovieForTest(1, popular)
+        database.moviesDao().insertAll(movie)
+
+        // WHEN - Get Populars movies from the database
+        val movies = database.moviesDao().searchPopularMovies("ori")
+
+        // THEN - The loaded data contains the expected values
+        assertThat(movies.size, CoreMatchers.`is`(1))
+        assertThat(movies[0].id, CoreMatchers.`is`(movie.id))
+        assertThat(movies[0].title, CoreMatchers.`is`(movie.title))
+        assertThat(movies[0].posterPath, CoreMatchers.`is`(movie.posterPath))
+        assertThat(movies[0].voteAverage, CoreMatchers.`is`(movie.voteAverage))
+    }
+
+    @Test
+    fun insertTopRatedMovieAndSearchTopRatedMovies() = runBlockingTest {
+        val dbutils = DbEntitiesTestUtils()
+        val popular = MoviesFilter.TOP_RATED
+
+        // GIVEN - insert a DbMovie
+        val movie = dbutils.getDbMovieForTest(1, popular)
+        database.moviesDao().insertAll(movie)
+
+        // WHEN - Get Populars movies from the database
+        val movies = database.moviesDao().searchTopRatedMovies("ori")
+
+        // THEN - The loaded data contains the expected values
+        assertThat(movies.size, CoreMatchers.`is`(1))
+        assertThat(movies[0].id, CoreMatchers.`is`(movie.id))
+        assertThat(movies[0].title, CoreMatchers.`is`(movie.title))
+        assertThat(movies[0].posterPath, CoreMatchers.`is`(movie.posterPath))
+        assertThat(movies[0].voteAverage, CoreMatchers.`is`(movie.voteAverage))
+    }
+
+    @Test
+    fun insertUpComingMovieAndSearchComingMovies() = runBlockingTest {
+        val dbutils = DbEntitiesTestUtils()
+        val popular = MoviesFilter.UP_COMING
+
+        // GIVEN - insert a DbMovie
+        val movie = dbutils.getDbMovieForTest(1, popular)
+        database.moviesDao().insertAll(movie)
+
+        // WHEN - Get Populars movies from the database
+        val movies = database.moviesDao().searchUpComingMovies("ori")
 
         // THEN - The loaded data contains the expected values
         assertThat(movies.size, CoreMatchers.`is`(1))

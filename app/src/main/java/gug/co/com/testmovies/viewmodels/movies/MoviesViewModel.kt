@@ -20,6 +20,8 @@ class MoviesViewModel(
     private val _movies = MutableLiveData<List<Movie>>().apply { value = emptyList() }
     val movies: LiveData<List<Movie>> = _movies
 
+    private val _moviesFromRepo = MutableLiveData<List<Movie>>().apply { value = emptyList() }
+
     private val _status = MutableLiveData<NetworkApiStatus>().apply { value = NetworkApiStatus.LOADING }
     val status: LiveData<NetworkApiStatus> = _status
 
@@ -37,11 +39,40 @@ class MoviesViewModel(
                 val moviesFromRepository = moviesRepository.getMoviesByFilter(moviesFilter)
                 if (moviesFromRepository is Result.Success) {
                     _movies.value = ArrayList(moviesFromRepository.data.asDomainModel())
+                    _moviesFromRepo.value = _movies.value
                     _status.value = NetworkApiStatus.DONE
                 } else {
                     _status.value = NetworkApiStatus.ERROR
                     _movies.value = emptyList()
                     _snackbarText.value = R.string.msg_error
+                }
+            } catch (e: Exception) {
+                _status.value = NetworkApiStatus.ERROR
+            }
+        }
+
+    }
+
+    override fun resetSearch() {
+        _movies.value = _moviesFromRepo.value
+    }
+
+    override fun filterMoviesByQuery(
+        query: String,
+        moviesFilter: MoviesFilter
+    ) {
+
+        uiScope.launch {
+            try {
+                _status.value = NetworkApiStatus.LOADING
+                val moviesSearchFromRepository = moviesRepository.searchMoviesByQueryAndFilter(query, moviesFilter)
+                if (moviesSearchFromRepository is Result.Success) {
+                    _movies.value = ArrayList(moviesSearchFromRepository.data.asDomainModel())
+                    _status.value = NetworkApiStatus.DONE
+                } else {
+                    // Resultado vacio
+                    _status.value = NetworkApiStatus.DONE
+                    _movies.value = emptyList()
                 }
             } catch (e: Exception) {
                 _status.value = NetworkApiStatus.ERROR

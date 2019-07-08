@@ -22,11 +22,22 @@ interface IContractMovies {
 
         fun showMovieDetail(movie: Movie)
 
+        fun resetSearch()
+
+        fun filterMoviesByQuery(query: String, moviesFilter: MoviesFilter)
+
     }
 
     interface Model {
 
-        suspend fun getMoviesByFilter(moviesFilter: MoviesFilter): Result<List<DbMovie>>
+        suspend fun getMoviesByFilter(
+            moviesFilter: MoviesFilter
+        ): Result<List<DbMovie>>
+
+        suspend fun searchMoviesByQueryAndFilter(
+            query: String,
+            moviesFilter: MoviesFilter
+        ): Result<List<DbMovie>>
 
     }
 

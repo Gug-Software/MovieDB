@@ -47,7 +47,7 @@ class MovieDetailRepositoryTest {
     fun getMovieDetail_Genres() = runBlockingTest {
 
         val movieId = 1
-        val movie = movieDetailRepository.getMovieDetailById(movieId) as Result.Success
+        val movie = movieDetailRepository.getMovieDetailById(movieId, MoviesFilter.POPULAR) as Result.Success
         val genres = movieDetailRepository.getGenresByMovieId(movieId) as Result.Success
 
         //
@@ -58,7 +58,7 @@ class MovieDetailRepositoryTest {
     fun getMovieDetail_ProductionCompanies() = runBlockingTest {
 
         val movieId = 1
-        val movie = movieDetailRepository.getMovieDetailById(movieId) as Result.Success
+        val movie = movieDetailRepository.getMovieDetailById(movieId, MoviesFilter.POPULAR) as Result.Success
         val companies = movieDetailRepository.getProductionCompaniesByMovieId(movieId) as Result.Success
 
         //
@@ -69,7 +69,7 @@ class MovieDetailRepositoryTest {
     fun getMovieDetail_SpokenLanguages() = runBlockingTest {
 
         val movieId = 1
-        val movie = movieDetailRepository.getMovieDetailById(movieId) as Result.Success
+        val movie = movieDetailRepository.getMovieDetailById(movieId, MoviesFilter.POPULAR) as Result.Success
         val languages = movieDetailRepository.getSpokenLanguagesByMovieId(movieId) as Result.Success
 
         //
@@ -82,7 +82,7 @@ class MovieDetailRepositoryTest {
 
         val movieId = 1
         val movieBefore = dbMovie1
-        val movie = movieDetailRepository.getMovieDetailById(movieId) as Result.Success
+        val movie = movieDetailRepository.getMovieDetailById(movieId, MoviesFilter.POPULAR) as Result.Success
 
         //
         Truth.assertThat(movie.data.homepage).isNotEqualTo(movieBefore.homepage)

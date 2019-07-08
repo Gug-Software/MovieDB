@@ -11,6 +11,8 @@ import gug.co.com.testmovies.utils.movies.MoviesFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.hamcrest.CoreMatchers
+import org.hamcrest.MatcherAssert
 import org.junit.Before
 import org.junit.Test
 
@@ -18,7 +20,7 @@ class MoviesRepositoryTest {
 
     private val remoteDtos = RemoteDtosTestUtils()
     private val localDb = DbEntitiesTestUtils()
-     /**
+    /**
      * POPULAR [1, 2] TOP_RATED [3, 4] UP_COMING [5]
      */
     private val dtoMovie1 = remoteDtos.getDtoMovieForTest(1)
@@ -141,6 +143,49 @@ class MoviesRepositoryTest {
 
         // Then tasks are loaded from the remote data source
         Truth.assertThat(movies.data.size).isEqualTo(moviesRemote.size)
+    }
+
+    @Test
+    fun searchPopularMoviesByFilter() = runBlockingTest {
+
+        val movies = moviesRepository.getMoviesByFilter(MoviesFilter.POPULAR) as Result.Success
+        val movieSearch =
+            moviesRepository.searchMoviesByQueryAndFilter("Title-1", MoviesFilter.POPULAR) as Result.Success
+
+        MatcherAssert.assertThat(movieSearch.data.size, CoreMatchers.`is`(1))
+        MatcherAssert.assertThat(movieSearch.data[0].id, CoreMatchers.`is`(dbMovie1.id))
+        MatcherAssert.assertThat(movieSearch.data[0].title, CoreMatchers.`is`(dbMovie1.title))
+        MatcherAssert.assertThat(movieSearch.data[0].posterPath, CoreMatchers.`is`(dbMovie1.posterPath))
+        MatcherAssert.assertThat(movieSearch.data[0].voteAverage, CoreMatchers.`is`(dbMovie1.voteAverage))
+    }
+
+    @Test
+    fun searchTopRatedMoviesByFilter() = runBlockingTest {
+
+        val movies = moviesRepository.getMoviesByFilter(MoviesFilter.TOP_RATED) as Result.Success
+        val movieSearch =
+            moviesRepository.searchMoviesByQueryAndFilter("Title-3", MoviesFilter.TOP_RATED) as Result.Success
+
+        MatcherAssert.assertThat(movieSearch.data.size, CoreMatchers.`is`(1))
+        MatcherAssert.assertThat(movieSearch.data[0].id, CoreMatchers.`is`(dbMovie3.id))
+        MatcherAssert.assertThat(movieSearch.data[0].title, CoreMatchers.`is`(dbMovie3.title))
+        MatcherAssert.assertThat(movieSearch.data[0].posterPath, CoreMatchers.`is`(dbMovie3.posterPath))
+        MatcherAssert.assertThat(movieSearch.data[0].voteAverage, CoreMatchers.`is`(dbMovie3.voteAverage))
+    }
+
+
+    @Test
+    fun searchUpComingMoviesByFilter() = runBlockingTest {
+
+        val movies = moviesRepository.getMoviesByFilter(MoviesFilter.UP_COMING) as Result.Success
+        val movieSearch =
+            moviesRepository.searchMoviesByQueryAndFilter("Title-5", MoviesFilter.UP_COMING) as Result.Success
+
+        MatcherAssert.assertThat(movieSearch.data.size, CoreMatchers.`is`(1))
+        MatcherAssert.assertThat(movieSearch.data[0].id, CoreMatchers.`is`(dbMovie5.id))
+        MatcherAssert.assertThat(movieSearch.data[0].title, CoreMatchers.`is`(dbMovie5.title))
+        MatcherAssert.assertThat(movieSearch.data[0].posterPath, CoreMatchers.`is`(dbMovie5.posterPath))
+        MatcherAssert.assertThat(movieSearch.data[0].voteAverage, CoreMatchers.`is`(dbMovie5.voteAverage))
     }
 
 

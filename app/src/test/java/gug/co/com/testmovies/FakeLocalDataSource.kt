@@ -8,17 +8,32 @@ class FakeLocalDataSource(var movies: MutableList<DbMovie>? = mutableListOf()) :
     MoviesLocalDataStore {
 
     override suspend fun getPopularMovies(): Result<List<DbMovie>> {
-        val moviesDb = movies!!.filter { it.isPopular == true }
+        val moviesDb = movies!!.filter { it.isPopular }
         return Result.Success(moviesDb)
     }
 
     override suspend fun getTopRatedMovies(): Result<List<DbMovie>> {
-        val moviesDb = movies!!.filter { it.isTopRated == true }
+        val moviesDb = movies!!.filter { it.isTopRated }
         return Result.Success(moviesDb)
     }
 
     override suspend fun getUpComingMovies(): Result<List<DbMovie>> {
-        val moviesDb = movies!!.filter { it.isUpComing == true }
+        val moviesDb = movies!!.filter { it.isUpComing }
+        return Result.Success(moviesDb)
+    }
+
+    override suspend fun searchPopularMovies(query: String): Result<List<DbMovie>> {
+        val moviesDb = movies!!.filter { it.originalTitle.contains(query) && it.isPopular }
+        return Result.Success(moviesDb)
+    }
+
+    override suspend fun searchTopRatedMovies(query: String): Result<List<DbMovie>> {
+        val moviesDb = movies!!.filter { it.originalTitle.contains(query) && it.isTopRated }
+        return Result.Success(moviesDb)
+    }
+
+    override suspend fun searchUpComingMovies(query: String): Result<List<DbMovie>> {
+        val moviesDb = movies!!.filter { it.originalTitle.contains(query) && it.isUpComing }
         return Result.Success(moviesDb)
     }
 

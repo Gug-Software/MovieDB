@@ -39,6 +39,30 @@ class MoviesRoomLocalDataStore(
         }
     }
 
+    override suspend fun searchPopularMovies(query: String): Result<List<DbMovie>> = withContext(ioDispatcher) {
+        return@withContext try {
+            Success(moviesDao.searchPopularMovies(query))
+        } catch (e: Exception) {
+            Error(e)
+        }
+    }
+
+    override suspend fun searchTopRatedMovies(query: String): Result<List<DbMovie>> = withContext(ioDispatcher) {
+        return@withContext try {
+            Success(moviesDao.searchTopRatedMovies(query))
+        } catch (e: Exception) {
+            Error(e)
+        }
+    }
+
+    override suspend fun searchUpComingMovies(query: String): Result<List<DbMovie>> = withContext(ioDispatcher) {
+        return@withContext try {
+            Success(moviesDao.searchUpComingMovies(query))
+        } catch (e: Exception) {
+            Error(e)
+        }
+    }
+
     override suspend fun insertAll(vararg movies: DbMovie) = withContext(ioDispatcher) {
         moviesDao.insertAll(*movies)
     }
