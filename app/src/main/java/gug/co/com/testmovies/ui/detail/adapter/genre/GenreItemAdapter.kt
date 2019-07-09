@@ -1,4 +1,4 @@
-package gug.co.com.testmovies.ui.detail.adapter
+package gug.co.com.testmovies.ui.detail.adapter.genre
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

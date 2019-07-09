@@ -1,12 +1,10 @@
 package gug.co.com.testmovies.repository.detail
 
 import gug.co.com.testmovies.data.source.local.MovieDetailLocalDataStore
-import gug.co.com.testmovies.data.source.local.room.entities.DbGenre
-import gug.co.com.testmovies.data.source.local.room.entities.DbMovie
-import gug.co.com.testmovies.data.source.local.room.entities.DbProductionCompany
-import gug.co.com.testmovies.data.source.local.room.entities.DbSpokenLanguage
+import gug.co.com.testmovies.data.source.local.room.entities.*
 import gug.co.com.testmovies.data.source.remote.MovieDetailRemoteDataStore
 import gug.co.com.testmovies.data.source.remote.retrofit.dtos.movies.details.asDatabaseModel
+import gug.co.com.testmovies.data.source.remote.retrofit.dtos.movies.videos.asDatabaseModel
 import gug.co.com.testmovies.ui.detail.IContractMovieDetail
 import gug.co.com.testmovies.utils.Result
 import gug.co.com.testmovies.utils.movies.MoviesFilter
@@ -44,6 +42,11 @@ class MovieDetailRepository(
                     )
                 )
 
+                val videosRemote = movieDetailRemoteDataStore.getMovieVideos(movieId)
+                (videosRemote  as? Result.Success)?.let { videos ->
+                    movieDetailLocalDataStore.insertVideos(*videosRemote.data.results.asDatabaseModel(movieId))
+                }
+
                 return@withContext Result.Success(movieDetail.data.asDatabaseModel(moviesFilter))
 
             }
@@ -64,6 +67,11 @@ class MovieDetailRepository(
     override suspend fun getSpokenLanguagesByMovieId(movieId: Int): Result<List<DbSpokenLanguage>> =
         withContext(ioDispatcher) {
             movieDetailLocalDataStore.getSpokenLaguageByMovieId(movieId)
+        }
+
+    override suspend fun getVideosByMovieId(movieId: Int): Result<List<DbVideo>> =
+        withContext(ioDispatcher) {
+            movieDetailLocalDataStore.getVideosByMovieId(movieId)
         }
 
 }

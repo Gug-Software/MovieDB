@@ -1,9 +1,6 @@
 package gug.co.com.testmovies.data.source.local
 
-import gug.co.com.testmovies.data.source.local.room.entities.DbGenre
-import gug.co.com.testmovies.data.source.local.room.entities.DbMovie
-import gug.co.com.testmovies.data.source.local.room.entities.DbProductionCompany
-import gug.co.com.testmovies.data.source.local.room.entities.DbSpokenLanguage
+import gug.co.com.testmovies.data.source.local.room.entities.*
 import gug.co.com.testmovies.utils.Result
 
 interface MovieDetailLocalDataStore {
@@ -29,6 +26,11 @@ interface MovieDetailLocalDataStore {
     suspend fun insertSpokenLaguages(vararg spokenLanguages: DbSpokenLanguage)
 
     /**
+     * Insert all the videos for movie
+     */
+    suspend fun insertVideos(vararg dbVideos: DbVideo)
+
+    /**
      * Get all the movie information for movieid
      */
     suspend fun getMovieById(movieId: Int): Result<DbMovie>
@@ -47,6 +49,11 @@ interface MovieDetailLocalDataStore {
      * get all de production companies by movie
      */
     suspend fun getProductionCompaniesByMovieId(movieId: Int): Result<List<DbProductionCompany>>
+
+    /**
+     * Get all the videos for movie
+     */
+    suspend fun getVideosByMovieId(movieId: Int): Result<List<DbVideo>>
 
 
 }

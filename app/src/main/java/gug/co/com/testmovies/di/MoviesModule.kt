@@ -5,10 +5,7 @@ import gug.co.com.testmovies.data.source.local.MoviesLocalDataStore
 import gug.co.com.testmovies.data.source.local.room.MovieDetailRoomLocalDataStore
 import gug.co.com.testmovies.data.source.local.room.MoviesDatabase
 import gug.co.com.testmovies.data.source.local.room.MoviesRoomLocalDataStore
-import gug.co.com.testmovies.data.source.local.room.dao.GenreDao
-import gug.co.com.testmovies.data.source.local.room.dao.MoviesDao
-import gug.co.com.testmovies.data.source.local.room.dao.ProductionCompanyDao
-import gug.co.com.testmovies.data.source.local.room.dao.SpokenLanguageDao
+import gug.co.com.testmovies.data.source.local.room.dao.*
 import gug.co.com.testmovies.data.source.remote.MovieDetailRemoteDataStore
 import gug.co.com.testmovies.data.source.remote.MoviesRemoteDataStore
 import gug.co.com.testmovies.data.source.remote.retrofit.MovieDetailRetrofitRemoteDataStore
@@ -38,6 +35,7 @@ class MoviesModule {
             single<GenreDao> { MoviesDatabase.getDatabase(get()).genreDao() }
             single<SpokenLanguageDao> { MoviesDatabase.getDatabase(get()).spokenLanguageDao() }
             single<ProductionCompanyDao> { MoviesDatabase.getDatabase(get()).productionCompanyDao() }
+            single<VideosDao> { MoviesDatabase.getDatabase(get()).videosDao() }
 
             // Remote Data store with retrofit movies api
             single<MoviesRemoteDataStore> { MoviesRetrofitRemoteDataStore(get()) }
@@ -47,7 +45,7 @@ class MoviesModule {
             // Remote Data store with retrofit movies api
             single<MovieDetailRemoteDataStore> { MovieDetailRetrofitRemoteDataStore(get()) }
             // Local Data Store with Room movies dao
-            single<MovieDetailLocalDataStore> { MovieDetailRoomLocalDataStore(get(), get(), get(), get()) }
+            single<MovieDetailLocalDataStore> { MovieDetailRoomLocalDataStore(get(), get(), get(), get(), get()) }
 
             // Movies Repository with Remote Retrofit and Local Room Dao
             single<IContractMovies.Model> { MoviesRepository(get(), get()) }

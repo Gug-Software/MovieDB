@@ -2,13 +2,14 @@ package gug.co.com.testmovies.data.source.local.room.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import gug.co.com.testmovies.data.domain.MovieVideo
 
 @Entity
 data class DbVideo(
 
     @PrimaryKey
     val id: String, // 5d1461950a517c00305ec236
-    
+
     val movieId: Int,
 
     val iso31661: String, // US
@@ -20,3 +21,14 @@ data class DbVideo(
     val type: String // Featurette
 
 )
+
+fun List<DbVideo>.asDomainModel(): List<MovieVideo> {
+    return map {
+        MovieVideo(
+            key = it.key,
+            name = it.name,
+            site = it.site,
+            type = it.site
+        )
+    }
+}

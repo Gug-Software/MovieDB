@@ -1,6 +1,8 @@
 package gug.co.com.testmovies.ui.detail
 
 import android.app.Application
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,14 +12,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import gug.co.com.testmovies.R
 import gug.co.com.testmovies.databinding.FragmentMovieDetailBinding
-import gug.co.com.testmovies.ui.detail.adapter.GenreItemAdapter
-import gug.co.com.testmovies.ui.detail.adapter.ProductionCompanyItemAdapter
-import gug.co.com.testmovies.ui.detail.adapter.SpokenLanguageItemAdapter
-import gug.co.com.testmovies.ui.movies.adapter.MovieItemListener
-import gug.co.com.testmovies.ui.movies.adapter.MoviesAdapter
+import gug.co.com.testmovies.ui.detail.adapter.genre.GenreItemAdapter
+import gug.co.com.testmovies.ui.detail.adapter.production_company.ProductionCompanyItemAdapter
+import gug.co.com.testmovies.ui.detail.adapter.spoken_language.SpokenLanguageItemAdapter
+import gug.co.com.testmovies.ui.detail.adapter.video.MovieVideoAdapter
+import gug.co.com.testmovies.ui.detail.adapter.video.MovieVideoItemListener
 import gug.co.com.testmovies.utils.movies.MoviesFilter
 import gug.co.com.testmovies.viewmodels.moviedetail.MovieDetailViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class MovieDetailFragment : Fragment() {
 
@@ -63,6 +66,22 @@ class MovieDetailFragment : Fragment() {
         configureRecyclerGenres()
         configureRecyclerProductionCompanies()
         configureRecyclerSpokenLanguages()
+        configureRecyclerMovieVideos()
+
+    }
+
+    private fun configureRecyclerMovieVideos() {
+
+        val adapter = MovieVideoAdapter(
+            MovieVideoItemListener {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.videoUrl)))
+            }
+        )
+        binding.videosRecycler.adapter = adapter
+        viewModel.videos.observe(this, Observer {
+            adapter.submitList(it)
+        })
+
     }
 
     private fun configureRecyclerSpokenLanguages() {

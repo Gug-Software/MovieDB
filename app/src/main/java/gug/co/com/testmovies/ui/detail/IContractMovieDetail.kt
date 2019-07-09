@@ -1,9 +1,6 @@
 package gug.co.com.testmovies.ui.detail
 
-import gug.co.com.testmovies.data.source.local.room.entities.DbGenre
-import gug.co.com.testmovies.data.source.local.room.entities.DbMovie
-import gug.co.com.testmovies.data.source.local.room.entities.DbProductionCompany
-import gug.co.com.testmovies.data.source.local.room.entities.DbSpokenLanguage
+import gug.co.com.testmovies.data.source.local.room.entities.*
 import gug.co.com.testmovies.utils.Result
 import gug.co.com.testmovies.utils.movies.MoviesFilter
 
@@ -28,6 +25,8 @@ interface IContractMovieDetail {
         suspend fun getProductionCompaniesByMovieId(movieId: Int): Result<List<DbProductionCompany>>
 
         suspend fun getSpokenLanguagesByMovieId(movieId: Int): Result<List<DbSpokenLanguage>>
+
+        suspend fun getVideosByMovieId(movieId: Int): Result<List<DbVideo>>
 
     }
 

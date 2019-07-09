@@ -3,10 +3,7 @@ package gug.co.com.testmovies.viewmodels.moviedetail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import gug.co.com.testmovies.R
-import gug.co.com.testmovies.data.domain.Genre
-import gug.co.com.testmovies.data.domain.MovieDetail
-import gug.co.com.testmovies.data.domain.ProductionCompany
-import gug.co.com.testmovies.data.domain.SpokenLanguage
+import gug.co.com.testmovies.data.domain.*
 import gug.co.com.testmovies.data.source.local.room.entities.asDomainModel
 import gug.co.com.testmovies.data.source.local.room.entities.asDomainModelDetail
 import gug.co.com.testmovies.data.source.remote.retrofit.NetworkApiStatus
@@ -36,6 +33,11 @@ class MovieDetailViewModel(
     }
     val spokenLanguages: LiveData<List<SpokenLanguage>> = _spokenLanguages
 
+    private val _videos = MutableLiveData<List<MovieVideo>>().apply {
+        value = emptyList()
+    }
+    val videos: LiveData<List<MovieVideo>> = _videos
+
     private val _status = MutableLiveData<NetworkApiStatus>()
     val status: LiveData<NetworkApiStatus> = _status
 
@@ -55,6 +57,7 @@ class MovieDetailViewModel(
                         (repository.getProductionCompaniesByMovieId(movieId) as Result.Success).data.asDomainModel()
                     _spokenLanguages.value =
                         (repository.getSpokenLanguagesByMovieId(movieId) as Result.Success).data.asDomainModel()
+                    _videos.value = (repository.getVideosByMovieId(movieId) as Result.Success).data.asDomainModel()
                     _status.value = NetworkApiStatus.DONE
                 } else {
                     _status.value = NetworkApiStatus.ERROR

@@ -1,14 +1,8 @@
 package gug.co.com.testmovies.data.source.local.room
 
 import gug.co.com.testmovies.data.source.local.MovieDetailLocalDataStore
-import gug.co.com.testmovies.data.source.local.room.dao.GenreDao
-import gug.co.com.testmovies.data.source.local.room.dao.MoviesDao
-import gug.co.com.testmovies.data.source.local.room.dao.ProductionCompanyDao
-import gug.co.com.testmovies.data.source.local.room.dao.SpokenLanguageDao
-import gug.co.com.testmovies.data.source.local.room.entities.DbGenre
-import gug.co.com.testmovies.data.source.local.room.entities.DbMovie
-import gug.co.com.testmovies.data.source.local.room.entities.DbProductionCompany
-import gug.co.com.testmovies.data.source.local.room.entities.DbSpokenLanguage
+import gug.co.com.testmovies.data.source.local.room.dao.*
+import gug.co.com.testmovies.data.source.local.room.entities.*
 import gug.co.com.testmovies.utils.Result
 import gug.co.com.testmovies.utils.Result.Error
 import gug.co.com.testmovies.utils.Result.Success
@@ -21,6 +15,7 @@ class MovieDetailRoomLocalDataStore(
     private val genreDao: GenreDao,
     private val productionCompanyDao: ProductionCompanyDao,
     private val spokenLanguageDao: SpokenLanguageDao,
+    private val videosDao: VideosDao,
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : MovieDetailLocalDataStore {
 
@@ -35,6 +30,10 @@ class MovieDetailRoomLocalDataStore(
 
     override suspend fun insertSpokenLaguages(vararg spokenLanguages: DbSpokenLanguage) = withContext(ioDispatcher) {
         spokenLanguageDao.insertAll(*spokenLanguages)
+    }
+
+    override suspend fun insertVideos(vararg dbVideos: DbVideo) = withContext(ioDispatcher) {
+        videosDao.insertAll(*dbVideos)
     }
 
     override suspend fun getMovieById(movieId: Int): Result<DbMovie> = withContext(ioDispatcher) {
@@ -71,6 +70,15 @@ class MovieDetailRoomLocalDataStore(
         withContext(ioDispatcher) {
             return@withContext try {
                 Success(productionCompanyDao.getProductionCompaniesByMovie(movieId))
+            } catch (e: Exception) {
+                Error(e)
+            }
+        }
+
+    override suspend fun getVideosByMovieId(movieId: Int): Result<List<DbVideo>> =
+        withContext(ioDispatcher) {
+            return@withContext try {
+                Success(videosDao.getVideosByMovie(movieId))
             } catch (e: Exception) {
                 Error(e)
             }
