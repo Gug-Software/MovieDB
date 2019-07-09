@@ -41,7 +41,7 @@ class MoviesRetrofitRemoteDataStore(
         return@withContext try {
             Result.Success(
                 moviesAPI.getUpComingMovies(
-                    API_KEY, LANGUAGE_ES, REGION_COLOMBIA
+                    API_KEY, LANGUAGE_ES
                 ).await()
             )
         } catch (e: Exception) {

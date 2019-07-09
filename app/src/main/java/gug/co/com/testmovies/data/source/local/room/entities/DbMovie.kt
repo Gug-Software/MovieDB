@@ -14,7 +14,7 @@ data class DbMovie(
     val adult: Boolean, // false
     val backdropPath: String?, // /7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg
     val budget: Int, // 356000000
-    val homepage: String, // https://www.marvel.com/movies/avengers-endgame
+    val homepage: String?, // https://www.marvel.com/movies/avengers-endgame
     val imdbId: String, // tt4154796
     val originalLanguage: String, // en
     val originalTitle: String, // Avengers: Endgame
@@ -23,7 +23,7 @@ data class DbMovie(
     val posterPath: String?, // /or06FN3Dka5tukK1e9sl16pB3iy.jpg
     val releaseDate: String, // 2019-04-24
     val revenue: Long, // 2764881856
-    val runtime: Int, // 181
+    val runtime: Int?, // 181
     val status: String, // Released
     val tagline: String, // Part of the journey is the end.
     val title: String, // Avengers: Endgame

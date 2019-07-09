@@ -11,7 +11,7 @@ data class MovieDetail(
     val voteAverage: Double = 0.0,
     val overview: String,
     val releaseDate: String,
-    val runtime: Int
+    val runtime: Int?
 
 ) {
 

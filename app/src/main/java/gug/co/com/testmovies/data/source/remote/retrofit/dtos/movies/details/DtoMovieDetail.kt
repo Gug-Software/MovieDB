@@ -13,7 +13,7 @@ data class DtoMovieDetail(
     val adult: Boolean, // false
 
     @Json(name = "backdrop_path")
-    val backdropPath: String, // /7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg
+    val backdropPath: String?, // /7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg
 
     @Json(name = "belongs_to_collection")
     val dtoBelongsToCollection: DtoBelongsToCollection?,
@@ -25,7 +25,7 @@ data class DtoMovieDetail(
     val dtoGenres: List<DtoGenre>,
 
     @Json(name = "homepage")
-    val homepage: String, // https://www.marvel.com/movies/avengers-endgame
+    val homepage: String?, // https://www.marvel.com/movies/avengers-endgame
 
     @Json(name = "id")
     val id: Int, // 299534
@@ -61,7 +61,7 @@ data class DtoMovieDetail(
     val revenue: Long, // 2764881856
 
     @Json(name = "runtime")
-    val runtime: Int, // 181
+    val runtime: Int?, // 181
 
     @Json(name = "spoken_languages")
     val dtoSpokenLanguages: List<DtoSpokenLanguage>,

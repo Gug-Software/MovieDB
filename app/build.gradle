@@ -91,6 +91,10 @@ dependencies {
     // Timber
     implementation "com.jakewharton.timber:timber:$version_timber"
 
+    // Skeleton
+    implementation "com.ethanhua:skeleton:$version_skeleton"
+    implementation "io.supercharge:shimmerlayout:$version_shimmerlayout"
+
     // Dependencies for local unit tests
     testImplementation "junit:junit:$junitVersion"
     //testImplementation "org.mockito:mockito-core:$mockitoVersion"

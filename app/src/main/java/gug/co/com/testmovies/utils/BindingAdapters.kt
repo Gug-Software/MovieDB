@@ -6,6 +6,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import gug.co.com.testmovies.R
+import gug.co.com.testmovies.data.domain.Movie
 import gug.co.com.testmovies.data.source.remote.retrofit.NetworkApiStatus
 
 /**
@@ -17,18 +19,6 @@ fun setImageUrl(imageView: ImageView, url: String?) {
         Glide.with(imageView.context).load(url).into(imageView)
     }
 
-}
-
-@BindingAdapter("postsApiStatus")
-fun postsApiStatus(statusTextView: TextView, status: NetworkApiStatus?) {
-    when (status) {
-        NetworkApiStatus.LOADING, NetworkApiStatus.ERROR -> {
-            statusTextView.visibility = View.VISIBLE
-        }
-        NetworkApiStatus.DONE -> {
-            statusTextView.visibility = View.GONE
-        }
-    }
 }
 
 @BindingAdapter("showFromApiStatus")
@@ -48,10 +38,43 @@ fun hideFromApiStatus(view: View, status: NetworkApiStatus?) {
     }
 }
 
+@BindingAdapter("hideIsEmptyString")
+fun hideIsEmptyString(view: View, string: String) {
+    if (string.isEmpty()) {
+        view.visibility = View.GONE
+    } else {
+        view.visibility = View.VISIBLE
+    }
+}
+
 @BindingAdapter("showIfZero")
-fun showIfZero(view: View, postSize: Int) {
-    when (postSize) {
+fun showIfZero(view: View, moviesSize: Int) {
+    when (moviesSize) {
         0 -> view.visibility = View.VISIBLE
         else -> view.visibility = View.GONE
+    }
+}
+
+@BindingAdapter("hideIfZero")
+fun hideIfZero(view: View, moviesSize: Int) {
+    when (moviesSize) {
+        0 -> view.visibility = View.GONE
+        else -> view.visibility = View.VISIBLE
+    }
+}
+
+@BindingAdapter("runtimeMinutes")
+fun TextView.setRuntimeMinutes(movie: Movie) {
+    when (movie.runtime) {
+        0 -> visibility = View.GONE
+        else -> {
+            visibility = View.VISIBLE
+            if (movie.runtime != null) {
+                setText(context.resources.getString(R.string.text_durationMinutes, movie.runtime.toString()))
+            } else {
+                visibility = View.GONE
+            }
+
+        }
     }
 }

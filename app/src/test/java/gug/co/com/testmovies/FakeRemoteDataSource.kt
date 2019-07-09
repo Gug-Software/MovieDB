@@ -3,6 +3,7 @@ package gug.co.com.testmovies
 import gug.co.com.testmovies.data.source.remote.MoviesRemoteDataStore
 import gug.co.com.testmovies.data.source.remote.retrofit.dtos.movies.discover.DtoMovie
 import gug.co.com.testmovies.data.source.remote.retrofit.dtos.movies.discover.DtoMovieResponse
+import gug.co.com.testmovies.data.source.remote.retrofit.dtos.search.movies.DtoSearchMoviesResponse
 import gug.co.com.testmovies.utils.Result
 import gug.co.com.testmovies.utils.Result.Success
 
@@ -12,6 +13,10 @@ class FakeRemoteDataSource(
     var upComingMovies: List<DtoMovie>? = listOf()
 ) :
     MoviesRemoteDataStore {
+
+    override suspend fun searchMovies(query: String): Result<DtoSearchMoviesResponse> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override suspend fun getPopularMovies(): Result<DtoMovieResponse> {
 

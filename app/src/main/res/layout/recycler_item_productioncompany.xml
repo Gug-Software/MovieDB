@@ -44,14 +44,16 @@
                         tools:srcCompat="@tools:sample/avatars"
                         app:layout_constraintStart_toStartOf="parent"
                         imageUrl="@{company.definitiveLgoPath}"
+                        hideIsEmptyString="@{company.definitiveLgoPath}"
                         app:layout_constraintTop_toTopOf="parent"
                         android:id="@+id/logo_image"/>
 
                 <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
+                        android:gravity="center_vertical"
                         app:layout_constraintTop_toTopOf="@+id/logo_image"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="8dp"
                         app:layout_constraintStart_toEndOf="@id/logo_image"
                         android:text="@{company.name}"
                         tools:text="@tools:sample/lorem"

@@ -10,4 +10,6 @@
     <color name="primaryTextColor">#212121</color>
     <color name="secondaryTextColor">#fafafa</color>
 
+    <color name="blackTransparentColor">#99212121</color>
+
 </resources>

@@ -10,6 +10,7 @@
     <string name="text_languages">Idiomas</string>
 
     <string name="text_hint_search">Busqueda</string>
+    <string name="text_durationMinutes">%1$s Mins.</string>
 
     <string name="msg_error">Ha ocurrido un error en la consulta</string>
     <string name="msg_empty">No hay peliculas por mostrar</string>

@@ -9,7 +9,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.ethanhua.skeleton.Skeleton
 import gug.co.com.testmovies.R
+import gug.co.com.testmovies.data.source.remote.retrofit.NetworkApiStatus
 import gug.co.com.testmovies.databinding.FragmentMoviesBinding
 import gug.co.com.testmovies.ui.movies.adapter.MovieItemListener
 import gug.co.com.testmovies.ui.movies.adapter.MoviesAdapter
@@ -25,6 +27,7 @@ class MoviesFragment : Fragment(), IContractMovies.View {
     lateinit var application: Application
     lateinit var moviesFilter: MoviesFilter
     var isGlobal = false
+    private lateinit var skeleton: Skeleton
 
     // Lazy inject ViewModel
     private val viewModel by viewModel<MoviesViewModel>()
@@ -110,8 +113,26 @@ class MoviesFragment : Fragment(), IContractMovies.View {
 
         binding.moviesRecycler.adapter = adapter
 
+        val skeletonScreen = Skeleton.bind(binding.moviesRecycler)
+            .adapter(adapter)
+            .load(R.layout.recycler_item_movie)
+            .color(R.color.primaryLightColor)
+            .duration(600)
+            .angle(30)
+            .show();
+
         viewModel.movies.observe(this, Observer {
             adapter.submitList(it)
+            skeletonScreen.hide()
+        })
+
+        viewModel.status.observe(this, Observer { status ->
+            status.let {
+                when (status) {
+                    NetworkApiStatus.LOADING -> skeletonScreen.show()
+                    else -> skeletonScreen.hide()
+                }
+            }
         })
 
     }

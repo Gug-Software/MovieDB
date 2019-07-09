@@ -49,8 +49,7 @@ interface MoviesAPI {
      */
     @GET("movie/upcoming")
     fun getUpComingMovies(
-        @Query("api_key") apiKey: String, @Query("language") language: String,
-        @Query("region") region: String
+        @Query("api_key") apiKey: String, @Query("language") language: String
     ): Deferred<DtoMovieResponse>
 
     /**

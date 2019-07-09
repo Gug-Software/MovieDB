@@ -24,6 +24,8 @@ buildscript {
         version_material = "1.1.0-alpha07"
         version_timber = "4.7.1"
         version_koin = "2.0.1"
+        version_skeleton = "1.1.2"
+        version_shimmerlayout = "2.1.0"
 
         junitVersion = '4.12'
         mockitoVersion = '2.8.9'

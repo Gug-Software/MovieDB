@@ -10,7 +10,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.ethanhua.skeleton.RecyclerViewSkeletonScreen
+import com.ethanhua.skeleton.Skeleton
+import com.ethanhua.skeleton.ViewSkeletonScreen
 import gug.co.com.testmovies.R
+import gug.co.com.testmovies.data.source.remote.retrofit.NetworkApiStatus
 import gug.co.com.testmovies.databinding.FragmentMovieDetailBinding
 import gug.co.com.testmovies.ui.detail.adapter.genre.GenreItemAdapter
 import gug.co.com.testmovies.ui.detail.adapter.production_company.ProductionCompanyItemAdapter
@@ -21,13 +25,19 @@ import gug.co.com.testmovies.utils.movies.MoviesFilter
 import gug.co.com.testmovies.viewmodels.moviedetail.MovieDetailViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
-
 class MovieDetailFragment : Fragment() {
 
     lateinit var binding: FragmentMovieDetailBinding
     lateinit var application: Application
     lateinit var moviesFilter: MoviesFilter
     var movieId: Int = 0
+
+    // for skeleton animation
+    lateinit var skeletonRecyclerVideos: RecyclerViewSkeletonScreen
+    lateinit var skeletonRecyclerGenres: RecyclerViewSkeletonScreen
+    lateinit var skeletonRecyclerCompanies: RecyclerViewSkeletonScreen
+    lateinit var skeletonRecyclerLanguages: RecyclerViewSkeletonScreen
+
 
     // Lazy inject ViewModel
     private val viewModel by viewModel<MovieDetailViewModel>()
@@ -78,6 +88,14 @@ class MovieDetailFragment : Fragment() {
             }
         )
         binding.videosRecycler.adapter = adapter
+        skeletonRecyclerVideos = Skeleton.bind(binding.videosRecycler)
+            .adapter(adapter)
+            .load(R.layout.recycler_item_movievideo)
+            .color(R.color.primaryLightColor)
+            .duration(600)
+            .angle(30)
+            .show()
+
         viewModel.videos.observe(this, Observer {
             adapter.submitList(it)
         })
@@ -88,6 +106,16 @@ class MovieDetailFragment : Fragment() {
 
         val adapter = SpokenLanguageItemAdapter()
         binding.spokenLanguagesRecycler.adapter = adapter
+
+        skeletonRecyclerLanguages = Skeleton.bind(binding.spokenLanguagesRecycler)
+            .adapter(adapter)
+            .load(R.layout.recycler_item_language)
+            .color(R.color.primaryLightColor)
+            .duration(600)
+            .angle(30)
+            .show();
+
+
         viewModel.spokenLanguages.observe(this, Observer {
             adapter.submitList(it)
         })
@@ -98,6 +126,15 @@ class MovieDetailFragment : Fragment() {
 
         val adapter = ProductionCompanyItemAdapter()
         binding.productionCompaniesRecycler.adapter = adapter
+
+        skeletonRecyclerCompanies = Skeleton.bind(binding.productionCompaniesRecycler)
+            .adapter(adapter)
+            .load(R.layout.recycler_item_productioncompany)
+            .color(R.color.primaryLightColor)
+            .duration(600)
+            .angle(30)
+            .show()
+
         viewModel.productionCompanies.observe(this, Observer {
             adapter.submitList(it)
         })
@@ -108,6 +145,14 @@ class MovieDetailFragment : Fragment() {
 
         val adapter = GenreItemAdapter()
         binding.genresRecycler.adapter = adapter
+        skeletonRecyclerGenres = Skeleton.bind(binding.genresRecycler)
+            .adapter(adapter)
+            .load(R.layout.recycler_item_genre)
+            .color(R.color.primaryLightColor)
+            .duration(600)
+            .angle(30)
+            .show()
+
         viewModel.genres.observe(this, Observer {
             adapter.submitList(it)
         })
@@ -115,6 +160,25 @@ class MovieDetailFragment : Fragment() {
     }
 
     private fun defineObservers() {
+
+        viewModel.status.observe(this, Observer { status ->
+            status.let {
+                when (status) {
+                    NetworkApiStatus.LOADING -> {
+                        skeletonRecyclerVideos.show()
+                        skeletonRecyclerGenres.show()
+                        skeletonRecyclerCompanies.show()
+                        skeletonRecyclerLanguages.show()
+                    }
+                    else -> {
+                        skeletonRecyclerVideos.hide()
+                        skeletonRecyclerGenres.hide()
+                        skeletonRecyclerCompanies.hide()
+                        skeletonRecyclerLanguages.hide()
+                    }
+                }
+            }
+        })
 
     }
 
