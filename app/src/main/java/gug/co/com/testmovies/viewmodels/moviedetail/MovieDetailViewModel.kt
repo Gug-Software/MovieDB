@@ -36,9 +36,7 @@ class MovieDetailViewModel(
     }
     val spokenLanguages: LiveData<List<SpokenLanguage>> = _spokenLanguages
 
-    private val _status = MutableLiveData<NetworkApiStatus>().apply {
-        value = NetworkApiStatus.LOADING
-    }
+    private val _status = MutableLiveData<NetworkApiStatus>()
     val status: LiveData<NetworkApiStatus> = _status
 
     private val _snackbarText = MutableLiveData<Int>()
