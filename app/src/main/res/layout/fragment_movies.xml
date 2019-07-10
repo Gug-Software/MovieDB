@@ -70,6 +70,7 @@
                     android:text="@string/msg_empty"
                     showIfZero="@{viewmodel.movies.size}"
                     android:layout_width="0dp"
+                    app:hideFromApiStatus="@{viewmodel.status}"
                     android:layout_height="wrap_content"
                     android:id="@+id/msg_text"
                     app:layout_constraintTop_toTopOf="parent"

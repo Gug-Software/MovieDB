@@ -13,7 +13,18 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/coordinator"
             style="@style/mm">
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/msg_error_gomelo"
+                android:gravity="center"
+                android:padding="32dp"
+                tools:visibility="visible"
+                android:textAlignment="center"
+                hideFromApiStatus="@{viewModel.status}"/>
 
         <ScrollView
                 style="@style/mm">
@@ -40,6 +51,7 @@
                         android:layout_height="210dp"
                         android:scaleType="fitXY"
                         imageUrl="@{viewModel.movie.definitiveBackdropPath}"
+                        app:showDataFromApiStatus="@{viewModel.status}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         tools:src="@tools:sample/backgrounds/scenic"
@@ -54,6 +66,7 @@
                         app:cardElevation="8dp"
                         android:layout_marginTop="8dp"
                         android:padding="16dp"
+                        app:showDataFromApiStatus="@{viewModel.status}"
                         app:layout_constraintTop_toBottomOf="@id/backDroph_image"
                         app:layout_constraintBottom_toBottomOf="@id/backDroph_image"
                         app:layout_constraintStart_toStartOf="parent"
@@ -85,6 +98,7 @@
                         tools:text="Nombre de la pelicula"
                         android:text="@{viewModel.movie.originalTitle}"
                         android:layout_width="0dp"
+                        app:showDataFromApiStatus="@{viewModel.status}"
                         android:layout_height="wrap_content"
                         android:id="@+id/name_text"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -99,6 +113,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:cardElevation="8dp"
+                        app:showDataFromApiStatus="@{viewModel.status}"
                         app:cardCornerRadius="4dp"
                         android:id="@+id/average_card"
                         android:layout_marginBottom="16dp"
@@ -136,6 +151,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/overview_text"
                         android:layout_marginTop="8dp"
+                        app:showDataFromApiStatus="@{viewModel.status}"
                         app:layout_constraintTop_toBottomOf="@+id/posterPath_image"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="8dp"
@@ -145,6 +161,7 @@
                 <TextView
                         android:text="@string/text_videos"
                         android:layout_width="wrap_content"
+                        app:showDataFromApiStatus="@{viewModel.status}"
                         android:layout_height="wrap_content"
                         android:id="@+id/videos_text"
                         hideIfZero="@{viewModel.videos.size}"
@@ -155,6 +172,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                        app:showDataFromApiStatus="@{viewModel.status}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -171,6 +189,7 @@
 
                 <TextView
                         android:text="@string/text_genres"
+                        app:showDataFromApiStatus="@{viewModel.status}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/genres_text"
@@ -188,6 +207,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:showDataFromApiStatus="@{viewModel.status}"
                         android:id="@+id/genres_recycler"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -200,6 +220,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/productionCompanies_text"
                         android:layout_marginTop="16dp"
+                        app:showDataFromApiStatus="@{viewModel.status}"
                         app:layout_constraintTop_toBottomOf="@+id/genres_recycler"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="16dp"
@@ -212,6 +233,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/productionCompanies_text"
                         app:layout_constraintStart_toStartOf="parent"
                         android:layout_marginStart="8dp"
+                        app:showDataFromApiStatus="@{viewModel.status}"
                         android:orientation="horizontal"
                         tools:listitem="@layout/recycler_item_productioncompany"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -221,6 +243,7 @@
 
                 <TextView
                         android:text="@string/text_languages"
+                        app:showDataFromApiStatus="@{viewModel.status}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/spokenLanguage_text"
@@ -231,6 +254,7 @@
                         android:textAppearance="@style/TextAppearance.AppCompat.Body2"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                        app:showDataFromApiStatus="@{viewModel.status}"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"

@@ -12,9 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.ethanhua.skeleton.RecyclerViewSkeletonScreen
 import com.ethanhua.skeleton.Skeleton
-import com.ethanhua.skeleton.ViewSkeletonScreen
+import com.google.android.material.snackbar.Snackbar
 import gug.co.com.testmovies.R
-import gug.co.com.testmovies.data.source.remote.retrofit.NetworkApiStatus
+import gug.co.com.testmovies.data.source.remote.NetworkApiStatus
 import gug.co.com.testmovies.databinding.FragmentMovieDetailBinding
 import gug.co.com.testmovies.ui.detail.adapter.genre.GenreItemAdapter
 import gug.co.com.testmovies.ui.detail.adapter.production_company.ProductionCompanyItemAdapter
@@ -32,12 +32,17 @@ class MovieDetailFragment : Fragment() {
     lateinit var moviesFilter: MoviesFilter
     var movieId: Int = 0
 
+    // recyclers adapters
+    lateinit var adapterVideos: MovieVideoAdapter
+    lateinit var adapterGenres: GenreItemAdapter
+    lateinit var adapterProductionCompanies: ProductionCompanyItemAdapter
+    lateinit var adapterSpokenLanguages: SpokenLanguageItemAdapter
+
     // for skeleton animation
     lateinit var skeletonRecyclerVideos: RecyclerViewSkeletonScreen
     lateinit var skeletonRecyclerGenres: RecyclerViewSkeletonScreen
     lateinit var skeletonRecyclerCompanies: RecyclerViewSkeletonScreen
     lateinit var skeletonRecyclerLanguages: RecyclerViewSkeletonScreen
-
 
     // Lazy inject ViewModel
     private val viewModel by viewModel<MovieDetailViewModel>()
@@ -57,11 +62,13 @@ class MovieDetailFragment : Fragment() {
         binding.lifecycleOwner = this
 
         configureRecyclers()
+        defineSkeletonScreens()
         defineObservers()
 
         return binding.root
 
     }
+
 
     override fun onStart() {
         super.onStart()
@@ -82,80 +89,73 @@ class MovieDetailFragment : Fragment() {
 
     private fun configureRecyclerMovieVideos() {
 
-        val adapter = MovieVideoAdapter(
+        adapterVideos = MovieVideoAdapter(
             MovieVideoItemListener {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(it.videoUrl)))
             }
         )
-        binding.videosRecycler.adapter = adapter
-        skeletonRecyclerVideos = Skeleton.bind(binding.videosRecycler)
-            .adapter(adapter)
-            .load(R.layout.recycler_item_movievideo)
-            .color(R.color.primaryLightColor)
-            .duration(600)
-            .angle(30)
-            .show()
-
+        binding.videosRecycler.adapter = adapterVideos
         viewModel.videos.observe(this, Observer {
-            adapter.submitList(it)
+            adapterVideos.submitList(it)
         })
 
     }
 
     private fun configureRecyclerSpokenLanguages() {
 
-        val adapter = SpokenLanguageItemAdapter()
-        binding.spokenLanguagesRecycler.adapter = adapter
-
-        skeletonRecyclerLanguages = Skeleton.bind(binding.spokenLanguagesRecycler)
-            .adapter(adapter)
-            .load(R.layout.recycler_item_language)
-            .color(R.color.primaryLightColor)
-            .duration(600)
-            .angle(30)
-            .show();
-
-
+        adapterSpokenLanguages = SpokenLanguageItemAdapter()
+        binding.spokenLanguagesRecycler.adapter = adapterSpokenLanguages
         viewModel.spokenLanguages.observe(this, Observer {
-            adapter.submitList(it)
+            adapterSpokenLanguages.submitList(it)
         })
 
     }
 
     private fun configureRecyclerProductionCompanies() {
 
-        val adapter = ProductionCompanyItemAdapter()
-        binding.productionCompaniesRecycler.adapter = adapter
-
-        skeletonRecyclerCompanies = Skeleton.bind(binding.productionCompaniesRecycler)
-            .adapter(adapter)
-            .load(R.layout.recycler_item_productioncompany)
-            .color(R.color.primaryLightColor)
-            .duration(600)
-            .angle(30)
-            .show()
-
+        adapterProductionCompanies = ProductionCompanyItemAdapter()
+        binding.productionCompaniesRecycler.adapter = adapterProductionCompanies
         viewModel.productionCompanies.observe(this, Observer {
-            adapter.submitList(it)
+            adapterProductionCompanies.submitList(it)
         })
 
     }
 
     private fun configureRecyclerGenres() {
 
-        val adapter = GenreItemAdapter()
-        binding.genresRecycler.adapter = adapter
-        skeletonRecyclerGenres = Skeleton.bind(binding.genresRecycler)
-            .adapter(adapter)
-            .load(R.layout.recycler_item_genre)
+        adapterGenres = GenreItemAdapter()
+        binding.genresRecycler.adapter = adapterGenres
+        viewModel.genres.observe(this, Observer {
+            adapterGenres.submitList(it)
+        })
+
+    }
+
+    private fun defineSkeletonScreens() {
+
+        skeletonRecyclerVideos = Skeleton.bind(binding.videosRecycler)
+            .adapter(adapterVideos)
+            .load(R.layout.recycler_item_movievideo)
             .color(R.color.primaryLightColor)
-            .duration(600)
-            .angle(30)
             .show()
 
-        viewModel.genres.observe(this, Observer {
-            adapter.submitList(it)
-        })
+        skeletonRecyclerLanguages = Skeleton.bind(binding.spokenLanguagesRecycler)
+            .adapter(adapterSpokenLanguages)
+            .load(R.layout.recycler_item_language)
+            .color(R.color.primaryLightColor)
+            .show()
+
+        skeletonRecyclerCompanies = Skeleton.bind(binding.productionCompaniesRecycler)
+            .adapter(adapterProductionCompanies)
+            .load(R.layout.recycler_item_productioncompany)
+            .color(R.color.primaryLightColor)
+            .show()
+
+        skeletonRecyclerGenres = Skeleton.bind(binding.genresRecycler)
+            .adapter(adapterGenres)
+            .load(R.layout.recycler_item_genre)
+            .color(R.color.primaryLightColor)
+            .show()
 
     }
 
@@ -180,7 +180,10 @@ class MovieDetailFragment : Fragment() {
             }
         })
 
-    }
+        viewModel.snackbarMessage.observe(this, Observer {
+            Snackbar.make(binding.coordinator, getString(it), Snackbar.LENGTH_LONG).show()
+        })
 
+    }
 
 }

@@ -10,8 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.ethanhua.skeleton.Skeleton
+import com.google.android.material.snackbar.Snackbar
 import gug.co.com.testmovies.R
-import gug.co.com.testmovies.data.source.remote.retrofit.NetworkApiStatus
+import gug.co.com.testmovies.data.source.remote.NetworkApiStatus
 import gug.co.com.testmovies.databinding.FragmentMoviesBinding
 import gug.co.com.testmovies.ui.movies.adapter.MovieItemListener
 import gug.co.com.testmovies.ui.movies.adapter.MoviesAdapter
@@ -144,6 +145,10 @@ class MoviesFragment : Fragment(), IContractMovies.View {
                 navigateToMovieDetail(movie.id)
                 viewModel.onMovieDetailNavigated()
             }
+        })
+
+        viewModel.snackbarMessage.observe(this, Observer {
+            Snackbar.make(binding.coordinator, getString(it), Snackbar.LENGTH_LONG).show()
         })
 
     }

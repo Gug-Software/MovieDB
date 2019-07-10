@@ -8,7 +8,7 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import gug.co.com.testmovies.R
 import gug.co.com.testmovies.data.domain.Movie
-import gug.co.com.testmovies.data.source.remote.retrofit.NetworkApiStatus
+import gug.co.com.testmovies.data.source.remote.NetworkApiStatus
 
 /**
  * Binding adapter used to display images from URL using Glide
@@ -32,9 +32,16 @@ fun showFromApiStatus(progressBar: ProgressBar, status: NetworkApiStatus?) {
 @BindingAdapter("hideFromApiStatus")
 fun hideFromApiStatus(view: View, status: NetworkApiStatus?) {
     when (status) {
-        NetworkApiStatus.LOADING -> view.visibility = View.GONE
-        NetworkApiStatus.ERROR -> view.visibility = View.GONE
+        NetworkApiStatus.LOADING, NetworkApiStatus.DONE -> view.visibility = View.GONE
         else -> view.visibility = View.VISIBLE
+    }
+}
+
+@BindingAdapter("showDataFromApiStatus")
+fun showDataFromApiStatus(view: View, status: NetworkApiStatus?) {
+    when (status) {
+        NetworkApiStatus.LOADING, NetworkApiStatus.DONE -> view.visibility = View.VISIBLE
+        else -> view.visibility = View.GONE
     }
 }
 

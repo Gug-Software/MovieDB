@@ -23,12 +23,16 @@ class MoviesRepository(
 
         return withContext(ioDispatcher) {
 
-            val moviesToShow = fetchMoviesFromLocalOrRemote(moviesFilter)
-            (moviesToShow as? Result.Success)?.let {
-                return@withContext Result.Success(it.data)
+            try {
+                val moviesToShow = fetchMoviesFromLocalOrRemote(moviesFilter)
+                (moviesToShow as? Result.Success)?.let {
+                    return@withContext Result.Success(it.data)
+                }
+            } catch (e: Exception) {
+                return@withContext Result.Error(Exception("Illegal state"))
             }
-
             return@withContext Result.Error(Exception("Illegal state"))
+
         }
 
     }
@@ -88,23 +92,27 @@ class MoviesRepository(
     ): Result<List<DbMovie>> {
 
         return withContext(ioDispatcher) {
-            if (isGlobal) {
-                var moviesSearchRemote = moviesRemoteDataStore.searchMovies(query)
-                (moviesSearchRemote as Result.Success)?.let { data ->
-                    // save the movies from remote in local store
-                    moviesLocalDataStore.insertAll(*data.data.results.asDatabaseModel(moviesFilter))
-                    return@withContext moviesLocalDataStore.searchMovies(query)
-                }
-            } else {
-                val moviesSearch = searchMoviesFromLocal(query, moviesFilter)
-                if (moviesSearch is Result.Success) {
-                    return@withContext moviesSearch
+
+            try {
+                if (isGlobal) {
+                    var moviesSearchRemote = moviesRemoteDataStore.searchMovies(query)
+                    (moviesSearchRemote as Result.Success)?.let { data ->
+                        // save the movies from remote in local store
+                        moviesLocalDataStore.insertAll(*data.data.results.asDatabaseModel(moviesFilter))
+                        return@withContext moviesLocalDataStore.searchMovies(query)
+                    }
                 } else {
-                    return@withContext Result.Error(Exception("Empty search"))
+                    val moviesSearch = searchMoviesFromLocal(query, moviesFilter)
+                    if (moviesSearch is Result.Success) {
+                        return@withContext moviesSearch
+                    } else {
+                        return@withContext Result.Error(Exception("Empty search"))
+                    }
                 }
+            } catch (exc: Exception) {
+                Result.Error(Exception("Empty search"))
             }
         }
-
 
     }
 

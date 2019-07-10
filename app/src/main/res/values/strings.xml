@@ -13,6 +13,7 @@
     <string name="text_durationMinutes">%1$s Mins.</string>
 
     <string name="msg_error">Ha ocurrido un error en la consulta</string>
+    <string name="msg_error_gomelo">Uuuups estas queriendo ver una pelicula como rara \n Le daremos solución muy pronto \n Go Go Go !!!</string>
     <string name="msg_empty">No hay peliculas por mostrar</string>
 
     <string name="menu_bottom_popular">Populares</string>

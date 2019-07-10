@@ -6,7 +6,7 @@ import gug.co.com.testmovies.R
 import gug.co.com.testmovies.data.domain.*
 import gug.co.com.testmovies.data.source.local.room.entities.asDomainModel
 import gug.co.com.testmovies.data.source.local.room.entities.asDomainModelDetail
-import gug.co.com.testmovies.data.source.remote.retrofit.NetworkApiStatus
+import gug.co.com.testmovies.data.source.remote.NetworkApiStatus
 import gug.co.com.testmovies.ui.detail.IContractMovieDetail
 import gug.co.com.testmovies.utils.Result
 import gug.co.com.testmovies.utils.movies.MoviesFilter

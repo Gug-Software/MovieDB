@@ -6,7 +6,7 @@ import gug.co.com.testmovies.*
 import gug.co.com.testmovies.data.source.local.MoviesLocalDataStore
 import gug.co.com.testmovies.data.source.local.room.entities.asDomainModel
 import gug.co.com.testmovies.data.source.remote.MoviesRemoteDataStore
-import gug.co.com.testmovies.data.source.remote.retrofit.NetworkApiStatus
+import gug.co.com.testmovies.data.source.remote.NetworkApiStatus
 import gug.co.com.testmovies.repository.movies.DbEntitiesTestUtils
 import gug.co.com.testmovies.repository.movies.MoviesRepository
 import gug.co.com.testmovies.repository.movies.RemoteDtosTestUtils
